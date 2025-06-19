@@ -1,0 +1,50 @@
+{
+    "name": "codeofsolomon/laravel-iiko-cloud-api",
+    "type": "library",
+    "description": "iiko-cloud api sdk",
+    "keywords": [
+        "laravel",
+        "package",
+        "iiko",
+        "api",
+        "client",
+        "facade"
+    ],
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "IikoApi\\": "./src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "IikoApi\\Tests\\": "./tests"
+        }
+    },
+    "authors": [
+        {
+            "name": "Suleyman G",
+            "email": "jjons8622@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^8.2",
+        "ext-json": "*",
+        "guzzlehttp/guzzle": "^7.9"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^10"
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "IikoApi\\IikoApiServiceProvider"
+            ]
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/phpunit"
+    }
+}
