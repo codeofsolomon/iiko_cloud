@@ -3,6 +3,7 @@
 namespace IikoApi;
 
 
+use IikoApi\Services\DictionaryService;
 use IikoApi\Services\MenuService;
 use IikoApi\Services\OrganizationService;
 use IikoApi\Contracts\ApiClientInterface;
@@ -15,13 +16,18 @@ class IikoApiClient
         protected TokenAuthenticator $authenticator
     ) {}
 
-    // public function organizations(): OrganizationService
-    // {
-    //     return new OrganizationService($this->apiClient, $this->authenticator);
-    // }
+    public function organizations(): OrganizationService
+    {
+        return new OrganizationService($this->apiClient, $this->authenticator);
+    }
 
     public function menu(): MenuService
     {
         return new MenuService($this->apiClient, $this->authenticator);
+    }
+
+    public function dictionary(): DictionaryService
+    {
+        return new DictionaryService($this->apiClient, $this->authenticator);
     }
 }
