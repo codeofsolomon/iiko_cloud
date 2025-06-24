@@ -11,5 +11,5 @@ enum PaymentTypeKind: string
     case Writeoff = 'Writeoff';
     case Voucher  = 'Voucher';
     case External = 'External';
-    case IikoCard = 'IikoCard';
+    case LoyaltyCard = 'LoyaltyCard';
 }
