@@ -28,6 +28,8 @@ class Constants
 
     public const STREETS_BY_CITY = 'streets/by_city';
 
+    public const REGIONS = 'regions';
+
     public const PAYMENT_TYPES_URL = 'payment_types';
 
     public const STOP_LISTS = 'stop_lists';
