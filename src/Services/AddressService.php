@@ -7,8 +7,10 @@ use IikoApi\Contracts\ApiClientInterface;
 use IikoApi\Auth\TokenAuthenticator;
 use IikoApi\Entity\Requests\Address\CitiesRequest;
 use IikoApi\Entity\Requests\Address\RegionsRequest;
+use IikoApi\Entity\Requests\Address\StreetsByCityRequest;
 use IikoApi\Entity\Responses\Address\CitiesResponse;
 use IikoApi\Entity\Responses\Address\RegionsResponse;
+use IikoApi\Entity\Responses\Address\StreetsByCityResponse;
 
 class AddressService
 {
@@ -57,4 +59,24 @@ class AddressService
 
         return CitiesResponse::fromArray($response);
     }
+
+    /**
+     * Summary of getStreetsByCity
+     * @param \IikoApi\Entity\Requests\Address\StreetsByCityRequest $request
+     * @return StreetsByCityResponse
+     */
+    public function getStreetsByCity(StreetsByCityRequest $request): StreetsByCityResponse
+    {
+        $token = $this->auth->getToken();
+
+        $response = $this->client->request(
+            'POST',
+            Constants::STREETS_BY_CITY,
+            $request->prepareRequest(),
+            ['Authorization' => "Bearer $token"]
+        );
+
+        return StreetsByCityResponse::fromArray($response);
+    }
+
 }
