@@ -5,12 +5,12 @@ namespace IikoApi\Services;
 use IikoApi\Constants;
 use IikoApi\Contracts\ApiClientInterface;
 use IikoApi\Auth\TokenAuthenticator;
-use Src\Entity\Requests\Dictionary\DiscountsRequest;
-use Src\Entity\Requests\Dictionary\OrderTypesRequest;
-use Src\Entity\Requests\Dictionary\PaymentTypesRequest;
-use Src\Entity\Responses\Dictionary\Discount;
-use Src\Entity\Responses\Dictionary\OrderTypes;
-use Src\Entity\Responses\Dictionary\PaymentTypes;
+use IikoApi\Entity\Requests\Dictionary\DiscountsRequest;
+use IikoApi\Entity\Requests\Dictionary\OrderTypesRequest;
+use IikoApi\Entity\Requests\Dictionary\PaymentTypesRequest;
+use IikoApi\Entity\Responses\Dictionary\Discount;
+use IikoApi\Entity\Responses\Dictionary\OrderTypes;
+use IikoApi\Entity\Responses\Dictionary\PaymentTypes;
 
 class DictionaryService
 {
@@ -22,7 +22,7 @@ class DictionaryService
 
     /**
      * Summary of getPaymentTypes
-     * @param \Src\Entity\Requests\Dictionary\PaymentTypesRequest $filter
+     * @param \IikoApi\Entity\Requests\Dictionary\PaymentTypesRequest $filter
      * @return PaymentTypes
      */
     public function getPaymentTypes(PaymentTypesRequest $filter): PaymentTypes
@@ -42,7 +42,7 @@ class DictionaryService
 
     /**
      * Summary of getOrderTypes
-     * @param \Src\Entity\Requests\Dictionary\OrderTypesRequest $filter
+     * @param \IikoApi\Entity\Requests\Dictionary\OrderTypesRequest $filter
      * @return OrderTypes
      */
     public function getOrderTypes(OrderTypesRequest $filter): OrderTypes
@@ -61,7 +61,7 @@ class DictionaryService
 
     /**
      * Summary of getDiscounts
-     * @param \Src\Entity\Requests\Dictionary\DiscountsRequest $filter
+     * @param \IikoApi\Entity\Requests\Dictionary\DiscountsRequest $filter
      * @return Discount
      */
     public function getDiscounts(DiscountsRequest $filter): Discount

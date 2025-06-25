@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Entity\Responses\CreateDelivery;
+namespace IikoApi\Entity\Responses\CreateDelivery;
 
-use Src\Entity\Responses\CreateDelivery\Person\Guest;
-use Src\Entity\Responses\CreateDelivery\Person\Customer;
-use Src\Entity\Responses\CreateDelivery\Person\Waiter;
+use IikoApi\Entity\Responses\CreateDelivery\Person\Guest;
+use IikoApi\Entity\Responses\CreateDelivery\Person\Customer;
+use IikoApi\Entity\Responses\CreateDelivery\Person\Waiter;
 use IikoApi\Enum\OrderStatus;
 use DateTimeImmutable;
 

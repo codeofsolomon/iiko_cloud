@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Requests\CreateOrder\DiscountsInfo;
+namespace IikoApi\Entity\Requests\CreateOrder\DiscountsInfo;
 
 use IikoApi\Entity\Requests\BaseRequest;
 

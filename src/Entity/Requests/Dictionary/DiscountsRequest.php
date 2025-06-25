@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Requests\Dictionary;
+namespace IikoApi\Entity\Requests\Dictionary;
 
 use IikoApi\Entity\Requests\BaseRequest;
 

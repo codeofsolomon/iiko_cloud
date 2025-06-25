@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Responses\Dictionary;
+namespace IikoApi\Entity\Responses\Dictionary;
 
 /** @property TerminalGroupItem[] $items */
 final readonly class TerminalGroup

@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Requests\Menu;
+namespace IikoApi\Entity\Requests\Menu;
 
 use IikoApi\Entity\Requests\BaseRequest;
 

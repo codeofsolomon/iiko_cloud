@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Responses\Dictionary;
+namespace IikoApi\Entity\Responses\Dictionary;
 
 /** @property OrderType[] $orderTypes */
 final readonly class OrderTypes

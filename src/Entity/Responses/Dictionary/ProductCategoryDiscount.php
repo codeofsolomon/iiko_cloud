@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Responses\Dictionary;
+namespace IikoApi\Entity\Responses\Dictionary;
 
 final readonly class ProductCategoryDiscount
 {

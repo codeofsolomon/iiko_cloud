@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Responses\Dictionary;
+namespace IikoApi\Entity\Responses\Dictionary;
 
 use IikoApi\Enum\PaymentProcessingType;
 use IikoApi\Enum\PaymentTypeKind;

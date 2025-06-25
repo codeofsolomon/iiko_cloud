@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Requests\CreateOrder\Payment;
+namespace IikoApi\Entity\Requests\CreateOrder\Payment;
 
 class PaymentCash extends Payment
 {

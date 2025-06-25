@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Responses\CreateDelivery\Person;
+namespace IikoApi\Entity\Responses\CreateDelivery\Person;
 
 use IikoApi\Enum\CustomerGender;
 

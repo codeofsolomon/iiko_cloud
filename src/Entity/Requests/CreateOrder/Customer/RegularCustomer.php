@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Requests\CreateOrder\Customer;
+namespace IikoApi\Entity\Requests\CreateOrder\Customer;
 
 use Carbon\Carbon;
 use IikoApi\Entity\Requests\BaseRequest;

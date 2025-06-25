@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Responses\CreateDelivery;
+namespace IikoApi\Entity\Responses\CreateDelivery;
 
 use IikoApi\Enum\PaymentTypeKind;
 

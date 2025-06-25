@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Requests\CreateOrder\TipsPayment;
+namespace IikoApi\Entity\Requests\CreateOrder\TipsPayment;
 
 use IikoApi\Enum\PaymentTypeKind;
 

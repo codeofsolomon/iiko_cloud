@@ -5,8 +5,8 @@ namespace IikoApi\Services;
 use IikoApi\Constants;
 use IikoApi\Contracts\ApiClientInterface;
 use IikoApi\Auth\TokenAuthenticator;
-use Src\Entity\Requests\Menu\MenuRequest;
-use Src\Entity\Responses\Menu\Nomenclature;
+use IikoApi\Entity\Requests\Menu\MenuRequest;
+use IikoApi\Entity\Responses\Menu\Nomenclature;
 
 
 class MenuService

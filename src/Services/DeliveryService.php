@@ -5,8 +5,8 @@ namespace IikoApi\Services;
 use IikoApi\Constants;
 use IikoApi\Contracts\ApiClientInterface;
 use IikoApi\Auth\TokenAuthenticator;
-use Src\Entity\Requests\CreateDelivery\Request;
-use Src\Entity\Responses\CreateDelivery\CreateDeliveryResponse;
+use IikoApi\Entity\Requests\CreateDelivery\Request;
+use IikoApi\Entity\Responses\CreateDelivery\CreateDeliveryResponse;
 
 class DeliveryService
 {

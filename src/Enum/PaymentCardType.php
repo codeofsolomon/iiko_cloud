@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Enum;
+namespace IikoApi\Enum;
 
 enum PaymentCardType: string
 {

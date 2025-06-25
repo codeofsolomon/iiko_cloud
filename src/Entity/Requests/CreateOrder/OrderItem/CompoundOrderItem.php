@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Requests\CreateOrder\OrderItem;
+namespace IikoApi\Entity\Requests\CreateOrder\OrderItem;
 
 use IikoApi\Entity\Requests\BaseRequest;
 

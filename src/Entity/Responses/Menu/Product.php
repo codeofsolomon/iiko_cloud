@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Responses\Menu;
+namespace IikoApi\Entity\Responses\Menu;
 
 /**
  * Полная модель Product из /api/1/nomenclature

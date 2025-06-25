@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Responses\CreateDelivery;
+namespace IikoApi\Entity\Responses\CreateDelivery;
 
 
 enum OrderItemType: string { case Product='Product'; case Modifier='Modifier'; }

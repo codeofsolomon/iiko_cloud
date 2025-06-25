@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Entity\Requests\CreateOrder\Payment;
+namespace IikoApi\Entity\Requests\CreateOrder\Payment;
 
 use IikoApi\Entity\Requests\BaseRequest;
-use Src\Enum\PaymentCardType;
-use Src\Enum\PaymentSearchScope;
+use IikoApi\Enum\PaymentCardType;
+use IikoApi\Enum\PaymentSearchScope;
 
 class PaymentAdditionalData extends BaseRequest
 {

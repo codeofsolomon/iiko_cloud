@@ -1,6 +1,6 @@
 <?php
 
-namespace Src\Entity\Requests\CreateDelivery;
+namespace IikoApi\Entity\Requests\CreateDelivery;
 
 use IikoApi\Entity\Requests\BaseRequest;
 

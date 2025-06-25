@@ -1,19 +1,19 @@
 <?php
 
-namespace Src\Entity\Requests\CreateDelivery;
+namespace IikoApi\Entity\Requests\CreateDelivery;
 
 use Carbon\Carbon;
 use IikoApi\Entity\Requests\BaseRequest;
 use IikoApi\Enum\OrderServiceType;
-use Src\Entity\Requests\CreateDelivery\DeliveryPoint\DeliveryPoint;
-use Src\Entity\Requests\CreateOrder\Customer;
-use Src\Entity\Requests\CreateOrder\OrderItem\ProductOrderItem;
-use Src\Entity\Requests\CreateOrder\OrderItem\CompoundOrderItem;
-use Src\Entity\Requests\CreateOrder\OrderCombo;
-use Src\Entity\Requests\CreateOrder\Payment\Payment;
-use Src\Entity\Requests\CreateOrder\TipsPayment\TipsPayment;
-use Src\Entity\Requests\CreateOrder\LoyaltyInfo;
-use Src\Entity\Requests\CreateOrder\DiscountsInfo\DiscountsInfo;
+use IikoApi\Entity\Requests\CreateDelivery\DeliveryPoint\DeliveryPoint;
+use IikoApi\Entity\Requests\CreateOrder\Customer;
+use IikoApi\Entity\Requests\CreateOrder\OrderItem\ProductOrderItem;
+use IikoApi\Entity\Requests\CreateOrder\OrderItem\CompoundOrderItem;
+use IikoApi\Entity\Requests\CreateOrder\OrderCombo;
+use IikoApi\Entity\Requests\CreateOrder\Payment\Payment;
+use IikoApi\Entity\Requests\CreateOrder\TipsPayment\TipsPayment;
+use IikoApi\Entity\Requests\CreateOrder\LoyaltyInfo;
+use IikoApi\Entity\Requests\CreateOrder\DiscountsInfo\DiscountsInfo;
 
 class Order extends BaseRequest
 {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Src\Entity\Requests\CreateOrder\TipsPayment;
+namespace IikoApi\Entity\Requests\CreateOrder\TipsPayment;
 
 use IikoApi\Entity\Requests\BaseRequest;
 use IikoApi\Enum\PaymentTypeKind;
-use Src\Entity\Requests\CreateOrder\Payment\PaymentAdditionalData;
+use IikoApi\Entity\Requests\CreateOrder\Payment\PaymentAdditionalData;
 
 class TipsPayment extends BaseRequest
 {
