@@ -28,6 +28,8 @@ class Constants
 
     public const STREETS_BY_CITY = 'streets/by_city';
 
+    public const STREETS_BY_ID_OR_CLASSIFIERLD = 'streets/by_id';
+
     public const REGIONS = 'regions';
 
     public const CITY = 'cities';
