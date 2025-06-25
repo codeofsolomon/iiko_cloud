@@ -30,6 +30,9 @@ class Constants
 
     public const REGIONS = 'regions';
 
+    public const CITY = 'cities';
+
+
     public const PAYMENT_TYPES_URL = 'payment_types';
 
     public const STOP_LISTS = 'stop_lists';
