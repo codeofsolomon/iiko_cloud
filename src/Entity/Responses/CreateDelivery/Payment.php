@@ -2,28 +2,31 @@
 
 namespace Src\Entity\Responses\CreateDelivery;
 
-use IikoApi\Enum\PaymentTypeKind;
 
 final readonly class Payment
 {
     public function __construct(
         public string          $id,
-        public string          $paymentTypeId,
-        public PaymentTypeKind $paymentTypeKind,
+        public PaymentType          $paymentType,
+        public bool $isPreliminary,
+        public bool $isExternal,
         public float           $sum,
         public bool            $isProcessedExternally,
-        public ?string         $additionalData = null,
+        public bool $isFiscalizedExternally,
+        public bool $isPrepay,
     ) {}
 
     public static function fromArray(array $d): self
     {
         return new self(
             id:        $d['id'],
-            paymentTypeId:      $d['paymentTypeId'],
-            paymentTypeKind:    PaymentTypeKind::from($d['paymentTypeKind']),
+            paymentType:    PaymentType::fromArray($d['paymentType']),
+            isPreliminary: (bool) $d['isPreliminary'],
+            isExternal: (bool) $d['isExternal'],
             sum:       (float) $d['sum'],
             isProcessedExternally: (bool) $d['isProcessedExternally'],
-            additionalData: $d['additionalData'] ?? null,
+            isFiscalizedExternally: (bool) $d['isFiscalizedExternally'],
+            isPrepay: (bool) $d['isPrepay'],
         );
     }
 }

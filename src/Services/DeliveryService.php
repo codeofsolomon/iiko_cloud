@@ -1,0 +1,34 @@
+<?php
+
+namespace IikoApi\Services;
+
+use IikoApi\Constants;
+use IikoApi\Contracts\ApiClientInterface;
+use IikoApi\Auth\TokenAuthenticator;
+use Src\Entity\Requests\CreateDelivery\Request;
+use Src\Entity\Responses\CreateDelivery\CreateDeliveryResponse;
+
+class DeliveryService
+{
+    public function __construct(
+        protected ApiClientInterface $client,
+        protected TokenAuthenticator $auth
+    ) {}
+
+
+
+    public function createDelivery(Request $request): CreateDeliveryResponse
+    {
+        $token = $this->auth->getToken();
+
+        $response = $this->client->request(
+            'POST',
+            Constants::CREATE_DELIVERY_URL,
+            $request->prepareRequest(),
+            ['Authorization' => "Bearer $token"]
+        );
+
+        return CreateDeliveryResponse::fromArray($response);
+    }
+
+}

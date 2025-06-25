@@ -3,6 +3,7 @@
 namespace IikoApi;
 
 
+use IikoApi\Services\DeliveryService;
 use IikoApi\Services\DictionaryService;
 use IikoApi\Services\MenuService;
 use IikoApi\Services\OrganizationService;
@@ -29,5 +30,11 @@ class IikoApiClient
     public function dictionary(): DictionaryService
     {
         return new DictionaryService($this->apiClient, $this->authenticator);
+    }
+
+
+    public function delivery(): DeliveryService
+    {
+        return new DeliveryService($this->apiClient, $this->authenticator);
     }
 }

@@ -5,19 +5,17 @@ namespace Src\Entity\Responses\CreateDelivery;
 final readonly class DiscountInfo
 {
     public function __construct(
-        public string $id,
-        public string $name,
+        public DiscountType $discountType,
         public float  $sum,
-        public bool   $isManual,
+        public ?bool   $selectivePositions,
     ) {}
 
     public static function fromArray(array $d): self
     {
         return new self(
-            id:      $d['id'],
-            name:    $d['name'],
+            discountType:    DiscountType::fromArray($d['discountType']),
             sum:     (float) $d['sum'],
-            isManual:(bool) $d['isManual'],
+            selectivePositions: (bool) $d['selectivePositions'] ?? null,
         );
     }
 }

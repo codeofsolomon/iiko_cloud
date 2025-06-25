@@ -2,16 +2,18 @@
 
 namespace Src\Entity\Responses\CreateDelivery;
 
-final readonly class Conception
+final readonly class TipsType
 {
     public function __construct(
-        public string $id,
+        public string   $id,
         public string $name,
-        public string $code,
     ) {}
 
     public static function fromArray(array $d): self
     {
-        return new self(id: $d['id'], name: $d['name'], code: $d['code']);
+        return new self(
+            id:    $d['id'],
+            name:   $d['name'],
+        );
     }
 }

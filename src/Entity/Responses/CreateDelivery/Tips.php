@@ -3,24 +3,34 @@
 namespace Src\Entity\Responses\CreateDelivery;
 
 
-enum TipsType: string { case Cash='Cash'; case Card='Card'; case External='External'; }
+
 
 final readonly class Tips
 {
     public function __construct(
         public string   $id,
-        public TipsType $type,
-        public float    $sum,
-        public ?float   $percentage = null,
+        public TipsType $tipsType,
+        public PaymentType          $paymentType,
+        public bool $isPreliminary,
+        public bool $isExternal,
+        public float           $sum,
+        public bool            $isProcessedExternally,
+        public bool $isFiscalizedExternally,
+        public bool $isPrepay,
     ) {}
 
     public static function fromArray(array $d): self
     {
         return new self(
             id:    $d['id'],
-            type:  TipsType::from($d['type']),
-            sum:   (float) $d['sum'],
-            percentage: isset($d['percentage']) ? (float) $d['percentage'] : null,
+            tipsType:  TipsType::fromArray($d['tipsType']),
+            paymentType:    PaymentType::fromArray($d['paymentType']),
+             isPreliminary: (bool) $d['isPreliminary'],
+            isExternal: (bool) $d['isExternal'],
+            sum:       (float) $d['sum'],
+            isProcessedExternally: (bool) $d['isProcessedExternally'],
+            isFiscalizedExternally: (bool) $d['isFiscalizedExternally'],
+            isPrepay: (bool) $d['isPrepay'],
         );
     }
 }

@@ -2,40 +2,47 @@
 
 namespace Src\Entity\Responses\CreateDelivery;
 
+use DateTimeImmutable;
+use IikoApi\Enum\OrderItemStatus;
 
-final readonly class OrderItem
+abstract readonly class OrderItem
 {
-    /** @param OrderModifier[] $modifiers */
     public function __construct(
-        public string        $id,
-        public string        $productId,
-        public string        $name,
-        public string        $code,
-        public float         $amount,
-        public float         $price,
-        public float         $sum,
-        public OrderItemType $type,
-        public ?string       $comment = null,
-        public array         $modifiers = [],
-        public ?string       $positionId = null,
-        public ?string       $comboInformation = null,
+        public string              $type,
+        public OrderItemStatus     $status,
+        public ?ItemDeletedInfo    $deleted,
+        public float               $amount,
+        public ?string             $comment,
+        public ?DateTimeImmutable  $whenPrinted,
+        public ?ProductSize        $size,
+        public ?ComboItemInformation $comboInformation,
     ) {}
 
+    /** @internal */
+    protected static function baseFromArray(array $d): array
+    {
+        return [
+            $d['type'],
+            OrderItemStatus::from($d['status']),
+            isset($d['deleted']) ? ItemDeletedInfo::fromArray($d['deleted']) : null,
+            (float) $d['amount'],
+            $d['comment'] ?? null,
+            isset($d['whenPrinted']) ? new DateTimeImmutable($d['whenPrinted']) : null,
+            isset($d['size']) ? ProductSize::fromArray($d['size']) : null,
+            isset($d['comboInformation']) ? ComboItemInformation::fromArray($d['comboInformation']) : null,
+        ];
+    }
+
+    /**
+     * Фабрика, которая сама решит, какой дочерний класс вернуть
+     */
     public static function fromArray(array $d): self
     {
-        return new self(
-            id:        $d['id'],
-            productId: $d['productId'],
-            name:      $d['name'],
-            code:      $d['code'],
-            amount:    (float) $d['amount'],
-            price:     (float) $d['price'],
-            sum:       (float) $d['sum'],
-            type:      OrderItemType::from($d['type']),
-            comment:   $d['comment'] ?? null,
-            modifiers: array_map(OrderModifier::class.'::fromArray', $d['modifiers'] ?? []),
-            positionId:        $d['positionId']        ?? null,
-            comboInformation:  $d['comboInformation']  ?? null,
-        );
+        return match ($d['type']) {
+            'Product'  => ProductOrderItem::fromArray($d),
+            'Compound' => CompoundOrderItem::fromArray($d),
+            'Service'  => ServiceOrderItem::fromArray($d),
+            default    => throw new \UnexpectedValueException("Unknown OrderItem.type = {$d['type']}"),
+        };
     }
 }
