@@ -3,6 +3,7 @@
 namespace IikoApi;
 
 
+use IikoApi\Services\CustomerService;
 use IikoApi\Services\DeliveryService;
 use IikoApi\Services\DictionaryService;
 use IikoApi\Services\MenuService;
@@ -36,5 +37,10 @@ class IikoApiClient
     public function delivery(): DeliveryService
     {
         return new DeliveryService($this->apiClient, $this->authenticator);
+    }
+
+    public function customer(): CustomerService
+    {
+        return new CustomerService($this->apiClient, $this->authenticator);
     }
 }

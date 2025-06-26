@@ -34,6 +34,8 @@ class Constants
 
     public const CITY = 'cities';
 
+    public const CUSTOMER_INFO = 'loyalty/iiko/customer/info';
+
 
     public const PAYMENT_TYPES_URL = 'payment_types';
 
