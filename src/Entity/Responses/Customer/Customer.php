@@ -2,20 +2,12 @@
 
 namespace IikoApi\Entity\Responses\Customer;
 
+use IikoApi\Enum\SexType;
+use IikoApi\Enum\ConsentStatus;
 
-enum SexType: int
-{
-    case Unknown = 0;
-    case Male    = 1;
-    case Female  = 2;
-}
 
-enum ConsentStatus: int
-{
-    case Unknown = 0;
-    case Given    = 1;
-    case Revoked  = 2;
-}
+
+
 
 
 enum CustomerType: string
@@ -34,9 +26,7 @@ final readonly class Customer
         public ?string      $comment,//
         public SexType      $sex, //
         public ConsentStatus $consentStatus, //
-        public bool         $inBlacklist,
-        public ?string      $blacklistReason,
-        public CustomerType $type,
+        
         public ?string      $phone,//
         public ?string $cultureName, //
         public ?string      $email, //
@@ -45,8 +35,7 @@ final readonly class Customer
         public bool         $shouldReceiveLoyaltyInfo,//
         public bool         $shouldReceiveOrderStatusInfo,//
         public ?string      $referrerId,//
-        public ?string      $referrerPhone,
-        public ?string      $referrerEmail,
+     
         public array        $walletBalances,//
         public array        $cards, //
         public array        $categories,//
@@ -76,9 +65,7 @@ final readonly class Customer
             $d['comment']         ?? null,
             SexType::from($d['sex'] ?? 0),
             ConsentStatus::from($d['consentStatus'] ?? 0),
-            (bool)$d['inBlacklist'],
-            $d['blacklistReason'] ?? null,
-            CustomerType::from($d['type'] ?? 'regular'),
+            
             $d['phone']           ?? null,
             $d['cultureName']           ?? null,
             $d['email']           ?? null,
@@ -87,8 +74,7 @@ final readonly class Customer
             (bool)($d['shouldReceiveLoyaltyInfo'] ?? false),
             (bool)($d['shouldReceiveOrderStatusInfo'] ?? false),
             $d['referrerId']      ?? null,
-            $d['referrerPhone']   ?? null,
-            $d['referrerEmail']   ?? null,
+    
             array_map([WalletBalance::class,'fromArray'], $d['walletBalances'] ?? []),
             array_map([Card::class,'fromArray'],          $d['cards']          ?? []),
             array_map([Category::class,'fromArray'],      $d['categories']     ?? []),

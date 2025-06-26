@@ -36,6 +36,8 @@ class Constants
 
     public const CUSTOMER_INFO = 'loyalty/iiko/customer/info';
 
+    public const CUSTOMER_CREATE_OR_UPDATE = 'loyalty/iiko/customer/create_or_update';
+
 
     public const PAYMENT_TYPES_URL = 'payment_types';
 
