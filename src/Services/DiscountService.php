@@ -9,10 +9,12 @@ use IikoApi\Entity\Requests\Discount\GetCouponRequest;
 use IikoApi\Entity\Requests\Discount\GetCouponSeriesRequest;
 use IikoApi\Entity\Requests\Discount\GetNonActivatedCouponsRequest;
 use IikoApi\Entity\Requests\Discount\ProgramsRequest;
+use IikoApi\Entity\Requests\LoyaltyCalculate\Request;
 use IikoApi\Entity\Responses\Discount\CouponInfoResponse;
 use IikoApi\Entity\Responses\Discount\CouponsBySeriesResponse;
 use IikoApi\Entity\Responses\Discount\CouponSeriesResponse;
 use IikoApi\Entity\Responses\Discount\ProgramsResponse;
+use IikoApi\Entity\Responses\LoyaltyCalculation\LoyaltyCalculationResponse;
 
 class DiscountService
 {
@@ -100,5 +102,24 @@ class DiscountService
         return ProgramsResponse::fromArray($response);
     }
 
+
+    /**
+     * Summary of calculate
+     * @param \IikoApi\Entity\Requests\LoyaltyCalculate\Request $request
+     * @return LoyaltyCalculationResponse
+     */
+    public function calculate(Request $request): LoyaltyCalculationResponse
+    {
+        $token = $this->auth->getToken();
+
+        $response = $this->client->request(
+            'POST',
+            Constants::LOYALTY_CALCULATE,
+            $request->prepareRequest(),
+            ['Authorization' => "Bearer $token"]
+        );
+
+        return LoyaltyCalculationResponse::fromArray($response);
+    }
 
 }
