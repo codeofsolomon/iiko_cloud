@@ -2,13 +2,16 @@
 
 namespace IikoApi\Entity\Responses\Discount;
 
-final readonly class Coupon
+final readonly class CouponInfo
 {
     public function __construct(
         public string       $id,             
         public ?string       $number,          
         public ?string       $seriesName,
         public ?string      $seriesId,  
+        public ?string $whenActivated,
+        public bool $isDeleted,
+
     ) {}
 
     public static function fromArray(array $d): self
@@ -18,6 +21,8 @@ final readonly class Coupon
             $d['number'],
             $d['seriesName'],
             $d['seriesId'],
+            $d['whenActivated'],
+            (bool) $d['isDeleted'],
         );
     }
 }
