@@ -8,9 +8,11 @@ use IikoApi\Auth\TokenAuthenticator;
 use IikoApi\Entity\Requests\Discount\GetCouponRequest;
 use IikoApi\Entity\Requests\Discount\GetCouponSeriesRequest;
 use IikoApi\Entity\Requests\Discount\GetNonActivatedCouponsRequest;
+use IikoApi\Entity\Requests\Discount\ProgramsRequest;
 use IikoApi\Entity\Responses\Discount\CouponInfoResponse;
 use IikoApi\Entity\Responses\Discount\CouponsBySeriesResponse;
 use IikoApi\Entity\Responses\Discount\CouponSeriesResponse;
+use IikoApi\Entity\Responses\Discount\ProgramsResponse;
 
 class DiscountService
 {
@@ -79,6 +81,24 @@ class DiscountService
     }
 
 
+    /**
+     * Summary of getPrograms
+     * @param \IikoApi\Entity\Requests\Discount\ProgramsRequest $filter
+     * @return ProgramsResponse
+     */
+    public function getPrograms(ProgramsRequest $filter): ProgramsResponse
+    {
+        $token = $this->auth->getToken();
+
+        $response = $this->client->request(
+            'POST',
+            Constants::PROGRAM,
+            $filter->prepareRequest(),
+            ['Authorization' => "Bearer $token"]
+        );
+
+        return ProgramsResponse::fromArray($response);
+    }
 
 
 }
