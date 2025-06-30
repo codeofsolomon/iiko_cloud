@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Application\Services;
 
 use IikoApi\Constants;
