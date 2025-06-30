@@ -2,7 +2,6 @@
 
 namespace IikoApi\Entity\Responses;
 
-
 /**
  * Base class for all API response DTOs.
  *
@@ -16,23 +15,21 @@ class BaseResponse
     /**
      * Hydrate the object with the given data.
      *
-     * @param array<string, mixed>|null $properties
+     * @param  array<string, mixed>|null  $properties
      */
     public function __construct(?array $properties = null)
     {
-        if (!is_null($properties)) {
+        if (! is_null($properties)) {
             foreach ($properties as $key => $value) {
                 $this->{$key} = $value;
             }
         }
     }
 
-
     /**
      * Create a new response object from array.
      *
-     * @param array<string, mixed> $properties
-     * @return static
+     * @param  array<string, mixed>  $properties
      */
     public static function create(array $properties): static
     {
@@ -42,7 +39,7 @@ class BaseResponse
     /**
      * Create a collection of response objects from array of arrays.
      *
-     * @param array<array<string, mixed>> $items
+     * @param  array<array<string, mixed>>  $items
      * @return static[]
      */
     public static function collection(array $items): array

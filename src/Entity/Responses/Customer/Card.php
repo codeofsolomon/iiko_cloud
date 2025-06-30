@@ -5,9 +5,9 @@ namespace IikoApi\Entity\Responses\Customer;
 final readonly class Card
 {
     public function __construct(
-        public string  $id,
-        public string  $track,
-        public string  $number,
+        public string $id,
+        public string $track,
+        public string $number,
         public ?string $validToDate,  // YYYY-MM-DD
     ) {}
 

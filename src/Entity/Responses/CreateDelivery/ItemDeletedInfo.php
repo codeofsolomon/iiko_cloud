@@ -2,7 +2,6 @@
 
 namespace IikoApi\Entity\Responses\CreateDelivery;
 
-
 final readonly class ItemDeletedInfo
 {
     public function __construct(public DeletionMethod $deletionMethod) {}

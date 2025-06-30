@@ -5,9 +5,9 @@ namespace IikoApi\Entity\Responses\Discount;
 final readonly class ActionConfig
 {
     public function __construct(
-        public ?string  $id,
-        public ?string  $settings,
-        public ?string  $typeName,
+        public ?string $id,
+        public ?string $settings,
+        public ?string $typeName,
         public ?string $checkSum,
     ) {}
 

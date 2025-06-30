@@ -2,7 +2,7 @@
 
 namespace IikoApi\Entity\Requests\CreateOrder\TipsPayment;
 
-use IikoApi\Enum\PaymentTypeKind;
+use IikoApi\Domain\Enums\PaymentTypeKind;
 
 class TipsPaymentCard extends TipsPayment
 {
@@ -14,7 +14,7 @@ class TipsPaymentCard extends TipsPayment
     protected ?string $number = null;
 
     /**
-     * Enum: Cash, Card, External.
+     * Domain\Enums: Cash, Card, External.
      */
     protected PaymentTypeKind $paymentTypeKind = PaymentTypeKind::Card;
 

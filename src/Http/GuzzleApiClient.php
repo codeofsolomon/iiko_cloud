@@ -3,12 +3,12 @@
 namespace IikoApi\Http;
 
 use GuzzleHttp\Client;
-use IikoApi\Exceptions\UnsupportedHttpRequestType;
-use IikoApi\Contracts\ApiClientInterface;
 use GuzzleHttp\Exception\GuzzleException;
-use IikoApi\Exceptions\IIkoRequestException;
-use Psr\Http\Message\ResponseInterface;
 use IikoApi\Constants;
+use IikoApi\Contracts\Http\ApiClientInterface;
+use IikoApi\Domain\Exceptions\IIkoRequestException;
+use IikoApi\Domain\Exceptions\UnsupportedHttpRequestType;
+use Psr\Http\Message\ResponseInterface;
 
 class GuzzleApiClient implements ApiClientInterface
 {
@@ -28,12 +28,11 @@ class GuzzleApiClient implements ApiClientInterface
 
             $response = $this->client->request($method, $uri, $options);
         } catch (GuzzleException|UnsupportedHttpRequestType $e) {
-            throw new IIkoRequestException('Network or transport error: ' . $e->getMessage(), 500);
+            throw new IIkoRequestException('Network or transport error: '.$e->getMessage(), 500);
         }
 
         return $this->handleResponse($response);
     }
-
 
     private function handleResponse(ResponseInterface $response): array
     {

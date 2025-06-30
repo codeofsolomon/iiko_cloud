@@ -6,14 +6,14 @@ final readonly class SizePrice
 {
     public function __construct(
         public string $sizeId,
-        public Price  $price,
+        public Price $price,
     ) {}
 
     public static function fromArray(array $data): self
     {
         return new self(
             sizeId: (string) $data['sizeId'],
-            price:  Price::fromArray($data['price']),
+            price: Price::fromArray($data['price']),
         );
     }
 }

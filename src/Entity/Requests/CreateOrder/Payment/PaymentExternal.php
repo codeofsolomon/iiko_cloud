@@ -2,12 +2,12 @@
 
 namespace IikoApi\Entity\Requests\CreateOrder\Payment;
 
-use IikoApi\Enum\PaymentTypeKind;
+use IikoApi\Domain\Enums\PaymentTypeKind;
 
 class PaymentExternal extends Payment
 {
     /**
-     * Enum: Cash, Card, IikoCard, External.
+     * Domain\Enums: Cash, Card, IikoCard, External.
      */
     protected PaymentTypeKind $paymentTypeKind = PaymentTypeKind::External;
 }

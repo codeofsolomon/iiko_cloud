@@ -8,6 +8,7 @@ final readonly class SizeRef
         public ?string $id,
         public ?string $name,
     ) {}
+
     public static function fromArray(array $d): self
     {
         return new self($d['id'] ?? null, $d['name'] ?? null);

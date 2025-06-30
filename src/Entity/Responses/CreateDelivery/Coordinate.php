@@ -47,8 +47,8 @@ final readonly class Region
 final readonly class Street
 {
     public function __construct(
-        public string  $id,
-        public string  $name,
+        public string $id,
+        public string $name,
         public ?City $city = null,
     ) {}
 
@@ -65,28 +65,28 @@ final readonly class Street
 final readonly class DeliveryAddress
 {
     public function __construct(
-        public ?string  $index     = null,
-        public ?Street $street    = null,
-        public ?string  $house     = null,
-        public ?string  $building  = null,
-        public ?string  $flat      = null,
-        public ?string  $entrance  = null,
-        public ?string  $floor     = null,
-        public ?string  $doorphone = null,
-        public ?Region  $region    = null,
+        public ?string $index = null,
+        public ?Street $street = null,
+        public ?string $house = null,
+        public ?string $building = null,
+        public ?string $flat = null,
+        public ?string $entrance = null,
+        public ?string $floor = null,
+        public ?string $doorphone = null,
+        public ?Region $region = null,
     ) {}
 
     public static function fromArray(array $d): self
     {
         return new self(
-            index    : $d['index']    ?? null,
+            index    : $d['index'] ?? null,
             street   : isset($d['street']) ? Street::fromArray($d['street']) : null,
-            house    : $d['house']    ?? null,
+            house    : $d['house'] ?? null,
             building : $d['building'] ?? null,
-            flat     : $d['flat']     ?? null,
+            flat     : $d['flat'] ?? null,
             entrance : $d['entrance'] ?? null,
-            floor    : $d['floor']    ?? null,
-            doorphone: $d['doorphone']?? null,
+            floor    : $d['floor'] ?? null,
+            doorphone: $d['doorphone'] ?? null,
             region   : isset($d['region']) ? Region::fromArray($d['region']) : null,
         );
     }
@@ -95,10 +95,10 @@ final readonly class DeliveryAddress
 final readonly class DeliveryPoint
 {
     public function __construct(
-        public Coordinate        $coordinates,
-        public ?DeliveryAddress   $address               = null,
-        public ?string             $externalCartographyId = null,
-        public ?string             $comment               = null,
+        public Coordinate $coordinates,
+        public ?DeliveryAddress $address = null,
+        public ?string $externalCartographyId = null,
+        public ?string $comment = null,
     ) {}
 
     public static function fromArray(array $d): self

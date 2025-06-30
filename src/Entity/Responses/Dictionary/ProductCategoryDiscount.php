@@ -7,7 +7,7 @@ final readonly class ProductCategoryDiscount
     public function __construct(
         public string $categoryId,
         public ?string $categoryName,
-        public string  $percent,
+        public string $percent,
     ) {}
 
     public static function fromArray(array $d): self

@@ -7,7 +7,7 @@ final readonly class Discount
     /** @param DiscountCardTypeInfo[] $items */
     public function __construct(
         public string $organizationId,
-        public array  $items,
+        public array $items,
     ) {}
 
     public static function fromArray(array $d): self

@@ -1,23 +1,23 @@
 <?php
 
-namespace IikoApi\Entity\Responses\Organization; 
+namespace IikoApi\Entity\Responses\Organization;
 
-use IikoApi\Enum\DeliveryServiceType;
-use IikoApi\Enum\AddressFormatType;
-use IikoApi\Enum\AddressLookupService;
-use IikoApi\Enum\ResponseType;
-use IikoApi\Enum\DeliveryOrderPaymentSetting;
+use IikoApi\Domain\Enums\AddressFormatType;
+use IikoApi\Domain\Enums\AddressLookupService;
+use IikoApi\Domain\Enums\DeliveryOrderPaymentSetting;
+use IikoApi\Domain\Enums\DeliveryServiceType;
+use IikoApi\Domain\Enums\ResponseType;
 
 /**
  * Summary of Organization
- * 
+ *
  * country  - Country
  * restaurantAddress - Restaurant address.
  * latitude - Latitude
  * longitude - Longitude
  * useUaeAddressingSystem - Regional setting "Use the UAE Addressing System".
  * version - RMS version.
- * currencyIsoName - ISO currency code (for example: RUB, USD, EUR).	
+ * currencyIsoName - ISO currency code (for example: RUB, USD, EUR).
  * currencyMinimumDenomination - Value rounding of position.
  * countryPhoneCode - Country dialing code.
  * marketingSourceRequiredInDelivery - Require mandatory marketing source input when creating a delivery.
@@ -32,12 +32,12 @@ use IikoApi\Enum\DeliveryOrderPaymentSetting;
  * isConfirmationEnabled - Determines whether to use delivery confirmation.
  * confirmAllowedIntervalInMinutes - Confirm orders time interval.
  * isCloud - Determines whether organization is hosted in iikoCloud.
- * isAnonymousGuestsAllowed - If the store allows orders for anonymous guests, then it is not necessary to transfer 
- * information about the guest as part of the delivery order. You can only transfer the phone number and optionally 
- * name of the guest, which will not be stored in the guest base and will only be used for the delivery of a current 
+ * isAnonymousGuestsAllowed - If the store allows orders for anonymous guests, then it is not necessary to transfer
+ * information about the guest as part of the delivery order. You can only transfer the phone number and optionally
+ * name of the guest, which will not be stored in the guest base and will only be used for the delivery of a current
  * delivery order.
  * addressLookup - Available address lookup services.
- * responseType 
+ * responseType
  * id - Organization ID.
  * name - Organization name.
  * code - Organization`s code.
@@ -75,7 +75,6 @@ final readonly class Organization
         public array $addressLookup,
     ) {}
 
-
     public static function fromArray(array $data): self
     {
         return new self(
@@ -98,7 +97,7 @@ final readonly class Organization
             deliveryServiceType: isset($data['deliveryServiceType'])
                 ? DeliveryServiceType::tryFrom($data['deliveryServiceType'])
                 : null,
-            deliveryOrderPaymentSettings: isset($data['deliveryOrderPaymentSettings']) 
+            deliveryOrderPaymentSettings: isset($data['deliveryOrderPaymentSettings'])
                 ? DeliveryOrderPaymentSetting::tryFrom($data['deliveryOrderPaymentSettings'])
                 : null,
             defaultCallCenterPaymentTypeId: $data['defaultCallCenterPaymentTypeId'] ?? null,
@@ -115,5 +114,4 @@ final readonly class Organization
             ),
         );
     }
-    
 }

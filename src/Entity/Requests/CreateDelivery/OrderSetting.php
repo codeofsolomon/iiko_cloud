@@ -10,14 +10,11 @@ class OrderSetting extends BaseRequest
 
     protected ?bool $checkStopList = null;
 
-
     public function __construct(
         ?int $transportToFrontTimeout = 8,
         ?bool $checkStopList = null
-    )
-    {
+    ) {
         $this->transportToFrontTimeout = $transportToFrontTimeout;
         $this->checkStopList = $checkStopList;
     }
-
 }

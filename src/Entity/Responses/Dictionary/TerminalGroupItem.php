@@ -13,9 +13,9 @@ final readonly class TerminalGroupItem
     public static function fromArray(array $d): self
     {
         return new self(
-            id:             $d['id'],
+            id: $d['id'],
             organizationId: $d['organizationId'],
-            name:           $d['name'],
+            name: $d['name'],
         );
     }
 }

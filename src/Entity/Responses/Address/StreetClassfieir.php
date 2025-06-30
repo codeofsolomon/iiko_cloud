@@ -7,8 +7,8 @@ final readonly class StreetClassfieir
     public function __construct(
         public string $id,
         public string $streetName,
-        public string    $cityId,
-        public string   $cityName,
+        public string $cityId,
+        public string $cityName,
         public ?string $classifierId
     ) {}
 

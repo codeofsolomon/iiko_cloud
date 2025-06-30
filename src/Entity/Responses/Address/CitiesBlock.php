@@ -6,7 +6,7 @@ final readonly class CitiesBlock
 {
     public function __construct(
         public string $organizationId,
-        public array  $items,
+        public array $items,
     ) {}
 
     public static function fromArray(array $d): self

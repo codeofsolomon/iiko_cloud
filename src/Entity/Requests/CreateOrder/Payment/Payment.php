@@ -2,13 +2,13 @@
 
 namespace IikoApi\Entity\Requests\CreateOrder\Payment;
 
+use IikoApi\Domain\Enums\PaymentTypeKind;
 use IikoApi\Entity\Requests\BaseRequest;
-use IikoApi\Enum\PaymentTypeKind;
 
 class Payment extends BaseRequest
 {
     /**
-     * Enum: Cash, Card, IikoCard, External.
+     * Domain\Enums: Cash, Card, IikoCard, External.
      */
     protected PaymentTypeKind $paymentTypeKind = PaymentTypeKind::Cash;
 
@@ -41,22 +41,19 @@ class Payment extends BaseRequest
      */
     protected ?bool $isFiscalizedExternally = null;
 
-
     /**
      * Whether the payment item is prepay. Unavailable for paymentKindType.LoyaltyCard.
      */
     protected ?bool $isPrepay = null;
 
-
     public function __construct(
-        float $sum, 
+        float $sum,
         string $paymentTypeId,
         ?bool $isProcessedExternally = null,
         ?PaymentAdditionalData $paymentAdditionalData = null,
         ?bool $isFiscalizedExternally = null,
         ?bool $isPrepay = null
-    )
-    {
+    ) {
         $this->sum = $sum;
         $this->paymentTypeId = $paymentTypeId;
         $this->isProcessedExternally = $isProcessedExternally;

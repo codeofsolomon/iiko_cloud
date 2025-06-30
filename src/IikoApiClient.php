@@ -2,7 +2,8 @@
 
 namespace IikoApi;
 
-
+use IikoApi\Contracts\Http\ApiClientInterface;
+use IikoApi\Infrastructure\Auth\TokenAuthenticator;
 use IikoApi\Services\AddressService;
 use IikoApi\Services\CustomerCategoryService;
 use IikoApi\Services\CustomerService;
@@ -12,8 +13,6 @@ use IikoApi\Services\DiscountService;
 use IikoApi\Services\MenuService;
 use IikoApi\Services\OrderService;
 use IikoApi\Services\OrganizationService;
-use IikoApi\Contracts\ApiClientInterface;
-use IikoApi\Auth\TokenAuthenticator;
 use IikoApi\Services\WebhookService;
 
 class IikoApiClient
@@ -43,7 +42,6 @@ class IikoApiClient
         return new DictionaryService($this->apiClient, $this->authenticator);
     }
 
-
     public function delivery(): DeliveryService
     {
         return new DeliveryService($this->apiClient, $this->authenticator);
@@ -63,7 +61,6 @@ class IikoApiClient
     {
         return new DiscountService($this->apiClient, $this->authenticator);
     }
-
 
     public function webhook(): WebhookService
     {

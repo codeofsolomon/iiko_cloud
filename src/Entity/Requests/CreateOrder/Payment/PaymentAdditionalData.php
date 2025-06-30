@@ -2,9 +2,9 @@
 
 namespace IikoApi\Entity\Requests\CreateOrder\Payment;
 
+use IikoApi\Domain\Enums\PaymentCardType;
+use IikoApi\Domain\Enums\PaymentSearchScope;
 use IikoApi\Entity\Requests\BaseRequest;
-use IikoApi\Enum\PaymentCardType;
-use IikoApi\Enum\PaymentSearchScope;
 
 class PaymentAdditionalData extends BaseRequest
 {
@@ -16,7 +16,7 @@ class PaymentAdditionalData extends BaseRequest
     /**
      * Guest credential search scope.
      *
-     * - Enum: "Reserved" "Phone" "CardNumber" "CardTrack" "PaymentToken" "FindFaceId"
+     * - Domain\Enums: "Reserved" "Phone" "CardNumber" "CardTrack" "PaymentToken" "FindFaceId"
      */
     protected PaymentSearchScope $searchScope;
 
@@ -25,8 +25,8 @@ class PaymentAdditionalData extends BaseRequest
     protected ?string $customData = null;
 
     public function __construct(
-        string $credential, 
-        PaymentSearchScope $searchScope, 
+        string $credential,
+        PaymentSearchScope $searchScope,
         PaymentCardType $type,
         ?string $customData = null)
     {

@@ -5,9 +5,9 @@ namespace IikoApi\Entity\Responses\CreateDelivery;
 final readonly class ComboItemInformation
 {
     public function __construct(
-        public string  $comboId,
-        public string  $comboSourceId,
-        public string  $groupId,
+        public string $comboId,
+        public string $comboSourceId,
+        public string $groupId,
         public ?string $groupName,
     ) {}
 

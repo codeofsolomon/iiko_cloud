@@ -2,7 +2,6 @@
 
 namespace IikoApi\Entity\Responses\CreateDelivery;
 
-
 final readonly class RemovalType
 {
     public function __construct(

@@ -5,7 +5,7 @@ namespace IikoApi\Entity\Responses\Order;
 final readonly class OrderResponse
 {
     public function __construct(
-        public string    $correlationId,
+        public string $correlationId,
         public OrderInfo $orderInfo,
     ) {}
 
@@ -13,7 +13,7 @@ final readonly class OrderResponse
     {
         return new self(
             correlationId: $d['correlationId'],
-            orderInfo:     OrderInfo::fromArray($d['orderInfo']),
+            orderInfo: OrderInfo::fromArray($d['orderInfo']),
         );
     }
 }

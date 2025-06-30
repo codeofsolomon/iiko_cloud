@@ -7,7 +7,7 @@ final readonly class OrderTypes
 {
     public function __construct(
         public string $correlationId,
-        public array  $orderTypes,
+        public array $orderTypes,
     ) {}
 
     public static function fromArray(array $d): self

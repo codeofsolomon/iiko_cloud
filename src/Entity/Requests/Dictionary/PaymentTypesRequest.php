@@ -6,13 +6,13 @@ use IikoApi\Entity\Requests\BaseRequest;
 
 class PaymentTypesRequest extends BaseRequest
 {
-     /**
+    /**
      * @var string[]
      */
     protected array $organizationIds = [];
 
     /**
-     * @param string[] $organizationIds
+     * @param  string[]  $organizationIds
      */
     public function __construct(array $organizationIds = [])
     {
@@ -20,7 +20,7 @@ class PaymentTypesRequest extends BaseRequest
     }
 
     /**
-     * @param string[] $organizationIds
+     * @param  string[]  $organizationIds
      */
     public function setOrganizationIds(array $organizationIds): void
     {

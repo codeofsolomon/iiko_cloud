@@ -2,24 +2,24 @@
 
 namespace IikoApi\Entity\Responses\Customer;
 
-enum WalletType: int    
+enum WalletType: int
 {
-    case DepositOrCorporate  = 0;
-    case Bonus     = 1;
-    case Products   = 2;
-    case Discount    = 3;
-    case Certificate     = 4;
+    case DepositOrCorporate = 0;
+    case Bonus = 1;
+    case Products = 2;
+    case Discount = 3;
+    case Certificate = 4;
 }
 
 final readonly class WalletBalance
 {
     /** @param WalletExpiredBalance[]|null $expiredBalances */
     public function __construct(
-        public string       $id,
-        public string       $name,
-        public WalletType   $type,
-        public float        $balance,
-        public ?array       $expiredBalances,
+        public string $id,
+        public string $name,
+        public WalletType $type,
+        public float $balance,
+        public ?array $expiredBalances,
     ) {}
 
     public static function fromArray(array $d): self
@@ -28,9 +28,9 @@ final readonly class WalletBalance
             $d['id'],
             $d['name'],
             WalletType::from($d['type']),
-            (float)$d['balance'],
+            (float) $d['balance'],
             isset($d['expiredBalances'])
-                ? array_map([WalletExpiredBalance::class,'fromArray'], $d['expiredBalances'])
+                ? array_map([WalletExpiredBalance::class, 'fromArray'], $d['expiredBalances'])
                 : null,
         );
     }

@@ -8,6 +8,7 @@ final readonly class ProductRef
         public ?string $id,
         public string $code,
     ) {}
+
     public static function fromArray(array $d): self
     {
         return new self($d['id'] ?? null, $d['code']);

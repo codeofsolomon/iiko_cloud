@@ -7,14 +7,14 @@ final readonly class Region
     public function __construct(
         public string $id,
         public string $name,
-        public ?int    $externalRevision,
-        public bool   $isDeleted,
+        public ?int $externalRevision,
+        public bool $isDeleted,
     ) {}
 
     public static function fromArray(array $d): self
     {
         return new self(
-           $d['id'],
+            $d['id'],
             $d['name'],
             (int) $d['externalRevision'] ?? null,
             (bool) $d['isDeleted'],

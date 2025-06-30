@@ -12,7 +12,7 @@ class DiscountsRequest extends BaseRequest
     protected array $organizationIds = [];
 
     /**
-     * @param string[] $organizationIds
+     * @param  string[]  $organizationIds
      */
     public function __construct(array $organizationIds = [])
     {
@@ -20,7 +20,7 @@ class DiscountsRequest extends BaseRequest
     }
 
     /**
-     * @param string[] $organizationIds
+     * @param  string[]  $organizationIds
      */
     public function setOrganizationIds(array $organizationIds): void
     {

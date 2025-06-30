@@ -9,6 +9,7 @@ final readonly class WarningItem
         public string $errorCode,
         public string $message,
     ) {}
+
     public static function fromArray(array $d): self
     {
         return new self($d['Code'], $d['ErrorCode'], $d['Message']);

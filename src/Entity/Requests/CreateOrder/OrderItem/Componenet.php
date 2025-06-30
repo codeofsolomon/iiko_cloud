@@ -23,16 +23,15 @@ class Componenet extends BaseRequest
     protected ?string $positionId = null;
 
     public function __construct(
-        string $productId, 
+        string $productId,
         ?array $modifiers = null,
         ?float $price = null,
         ?string $positionId = null,
-    )
-    {
+    ) {
         $this->productId = $productId;
         $this->modifiers = $modifiers;
         $this->price = $price;
         $this->positionId = $positionId;
-        
+
     }
 }

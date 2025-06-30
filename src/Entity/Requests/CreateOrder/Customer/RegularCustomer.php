@@ -3,13 +3,11 @@
 namespace IikoApi\Entity\Requests\CreateOrder\Customer;
 
 use Carbon\Carbon;
+use IikoApi\Domain\Enums\CustomerGender;
 use IikoApi\Entity\Requests\BaseRequest;
-use IikoApi\Enum\CustomerGender;
 
 class RegularCustomer extends BaseRequest
 {
-    
-
     protected string $type = 'regular';
 
     /**
@@ -62,10 +60,9 @@ class RegularCustomer extends BaseRequest
     /**
      * Gender.
      *
-     * Enum: "NotSpecified" "Male" "Female"
+     * Domain\Enums: "NotSpecified" "Male" "Female"
      */
     protected CustomerGender $gender = CustomerGender::GENDER_NOT_SPECIFIED;
-
 
     public function __construct(
         ?string $id = null,
@@ -76,8 +73,7 @@ class RegularCustomer extends BaseRequest
         ?string $email = null,
         ?bool $shouldReceiveOrderStatusNotifications = null,
         CustomerGender $gender = CustomerGender::GENDER_NOT_SPECIFIED
-    )
-    {
+    ) {
         $this->id = $id;
         $this->name = $name ? mb_substr($name, 0, 60) : null;
         $this->surname = $surname ? mb_substr($surname, 0, 60) : null;
@@ -87,7 +83,6 @@ class RegularCustomer extends BaseRequest
         $this->shouldReceiveOrderStatusNotifications = $shouldReceiveOrderStatusNotifications;
         $this->gender = $gender;
     }
-
 
     public function setId(?string $id): void
     {

@@ -7,10 +7,10 @@ use DateTimeImmutable;
 final readonly class WebhookEvent
 {
     public function __construct(
-        public string    $eventType,
-        public DateTimeImmutable   $eventTime,
-        public string              $organizationId,
-        public string              $correlationId,
+        public string $eventType,
+        public DateTimeImmutable $eventTime,
+        public string $organizationId,
+        public string $correlationId,
         public DeliveryOrderUpdateEventInfo $eventInfo,
     ) {}
 

@@ -6,7 +6,7 @@ final readonly class StreetsByCityResponse
 {
     public function __construct(
         public string $correlationId,
-        public array  $streets,
+        public array $streets,
     ) {}
 
     public static function fromArray(array $d): self

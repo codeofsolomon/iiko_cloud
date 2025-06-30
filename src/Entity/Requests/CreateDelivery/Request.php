@@ -12,19 +12,17 @@ class Request extends BaseRequest
 
     protected ?OrderSetting $createOrderSettings;
 
-     protected Order $order;
+    protected Order $order;
 
     public function __construct(
         string $organizationId,
         Order $order,
-        ?string $terminalGroupId = null,
+        ?string $terminalGroupId,
         ?OrderSetting $createOrderSettings
-    )
-    {
+    ) {
         $this->organizationId = $organizationId;
         $this->terminalGroupId = $terminalGroupId;
         $this->createOrderSettings = $createOrderSettings;
         $this->order = $order;
     }
-
 }

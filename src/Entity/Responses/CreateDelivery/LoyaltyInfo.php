@@ -13,7 +13,7 @@ final readonly class LoyaltyInfo
     {
         return new self(
             coupon: $d['coupon'] ?? null,
-            appliedManualConditions:    $d['appliedManualConditions']    ?? null,
+            appliedManualConditions: $d['appliedManualConditions'] ?? null,
         );
     }
 }

@@ -39,7 +39,7 @@ class OrderCombo extends BaseRequest
     protected ?string $sizeId = null;
 
     public function __construct(string $id, string $name, int $amount, float $price, string $sourceId,
-    ?string $programId = null, ?string $sizeId = null)
+        ?string $programId = null, ?string $sizeId = null)
     {
         $this->id = $id;
         $this->name = $name;

@@ -3,32 +3,37 @@
 namespace IikoApi\Entity\Requests\CreateDelivery;
 
 use Carbon\Carbon;
+use IikoApi\Domain\Enums\OrderServiceType;
 use IikoApi\Entity\Requests\BaseRequest;
-use IikoApi\Enum\OrderServiceType;
 use IikoApi\Entity\Requests\CreateDelivery\DeliveryPoint\DeliveryPoint;
 use IikoApi\Entity\Requests\CreateOrder\Customer;
-use IikoApi\Entity\Requests\CreateOrder\OrderItem\ProductOrderItem;
-use IikoApi\Entity\Requests\CreateOrder\OrderItem\CompoundOrderItem;
+use IikoApi\Entity\Requests\CreateOrder\DiscountsInfo\DiscountsInfo;
+use IikoApi\Entity\Requests\CreateOrder\LoyaltyInfo;
 use IikoApi\Entity\Requests\CreateOrder\OrderCombo;
+use IikoApi\Entity\Requests\CreateOrder\OrderItem\CompoundOrderItem;
+use IikoApi\Entity\Requests\CreateOrder\OrderItem\ProductOrderItem;
 use IikoApi\Entity\Requests\CreateOrder\Payment\Payment;
 use IikoApi\Entity\Requests\CreateOrder\TipsPayment\TipsPayment;
-use IikoApi\Entity\Requests\CreateOrder\LoyaltyInfo;
-use IikoApi\Entity\Requests\CreateOrder\DiscountsInfo\DiscountsInfo;
 
 class Order extends BaseRequest
 {
     protected ?string $menuId;
+
     protected ?string $priceCategoryId;
+
     protected ?string $id;
+
     protected ?string $externalNumber;
+
     protected ?string $completeBefore;
 
     protected ?string $phone;
+
     protected ?string $phoneExtension;
+
     protected ?string $orderTypeId;
 
-    protected ?OrderServiceType  $orderServiceType = OrderServiceType::DeliveryByCourier;
-
+    protected ?OrderServiceType $orderServiceType = OrderServiceType::DeliveryByCourier;
 
     protected ?DeliveryPoint $deliveryPoint = null;
 
@@ -36,7 +41,6 @@ class Order extends BaseRequest
      * Order comment.
      */
     protected ?string $comment = null;
-
 
     /**
      * Customer.
@@ -51,7 +55,6 @@ class Order extends BaseRequest
      * - customer details will NOT be added to the store's customer database and will be used ONLY to complete the current order
      */
     protected Customer\RegularCustomer|Customer\OneTimeCustomer|null $customer = null;
-
 
     /**
      * Guest details. Not equal to the customer who makes an order.
@@ -71,9 +74,8 @@ class Order extends BaseRequest
     protected ?string $operatorId = null;
 
     /**
-     * Delivery duration. 
+     * Delivery duration.
      * */
-
     protected ?int $deliveryDuration = null;
 
     protected ?string $deliveryZone = null;
@@ -85,7 +87,7 @@ class Order extends BaseRequest
      */
     protected array $items = [];
 
-     /**
+    /**
      * Combos included in order.
      *
      * @var OrderCombo[]|null
@@ -121,8 +123,7 @@ class Order extends BaseRequest
      */
     protected ?LoyaltyInfo $loyaltyInfo = null;
 
-
-     public function __construct(
+    public function __construct(
         array $items,
         ?string $menuId = null,
         ?string $priceCategoryId = null,
@@ -147,8 +148,7 @@ class Order extends BaseRequest
         ?string $sourceKey = null,
         ?DiscountsInfo $discountsInfo = null,
         ?LoyaltyInfo $loyaltyInfo = null
-    )
-    {
+    ) {
         $this->items = $items;
         $this->menuId = $menuId;
         $this->priceCategoryId = $priceCategoryId;
@@ -174,6 +174,4 @@ class Order extends BaseRequest
         $this->discountsInfo = $discountsInfo;
         $this->loyaltyInfo = $loyaltyInfo;
     }
-    
-
 }

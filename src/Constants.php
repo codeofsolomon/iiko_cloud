@@ -41,11 +41,12 @@ class Constants
     public const CUSTOMER_CATEGORY = 'loyalty/iiko/customer_category';
 
     public const ADD_CUSTOMER_CATEGORY = 'loyalty/iiko/customer_category/add';
+
     public const REMOVE_CUSTOMER_CATEGORY = 'loyalty/iiko/customer_category/remove';
 
     public const NON_ACTIVATED_COUPON = 'loyalty/iiko/coupons/by_series';
-    public const NON_ACTIVATED_SERIES = 'loyalty/iiko/coupons/series';
 
+    public const NON_ACTIVATED_SERIES = 'loyalty/iiko/coupons/series';
 
     public const PAYMENT_TYPES_URL = 'payment_types';
 

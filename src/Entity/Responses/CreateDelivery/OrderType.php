@@ -2,7 +2,7 @@
 
 namespace IikoApi\Entity\Responses\CreateDelivery;
 
-use IikoApi\Enum\OrderServiceType;
+use IikoApi\Domain\Enums\OrderServiceType;
 
 final readonly class OrderType
 {
@@ -16,7 +16,7 @@ final readonly class OrderType
     {
         return new self(
             id: $d['id'],
-            name:    $d['name'],
+            name: $d['name'],
             orderServiceType: OrderServiceType::from($d['orderServiceType'])
         );
     }

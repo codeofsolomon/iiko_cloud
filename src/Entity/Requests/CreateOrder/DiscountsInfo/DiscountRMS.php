@@ -4,7 +4,6 @@ namespace IikoApi\Entity\Requests\CreateOrder\DiscountsInfo;
 
 use IikoApi\Entity\Requests\BaseRequest;
 
-
 class DiscountRMS extends BaseRequest
 {
     protected string $type = 'RMS';
@@ -62,7 +61,7 @@ class DiscountRMS extends BaseRequest
     }
 
     /**
-     * @param string[]|null $selectivePositions
+     * @param  string[]|null  $selectivePositions
      */
     public function setSelectivePositions(?array $selectivePositions): void
     {
@@ -71,7 +70,7 @@ class DiscountRMS extends BaseRequest
 
     public function addSelectivePosition(string $position): void
     {
-        if (!is_array($this->selectivePositions)) {
+        if (! is_array($this->selectivePositions)) {
             $this->selectivePositions = [];
         }
 

@@ -20,8 +20,6 @@ class OrganizationsRequest extends BaseRequest
      */
     private array $returnExternalData = [];
 
-
-
     public function __construct(
         array $organizationIds = [],
         bool $returnAdditionalInfo = false,
@@ -39,24 +37,28 @@ class OrganizationsRequest extends BaseRequest
     public function setOrganizationIds(array $ids): self
     {
         $this->organizationIds = $ids;
+
         return $this;
     }
 
     public function setReturnAdditionalInfo(bool $value): self
     {
         $this->returnAdditionalInfo = $value;
+
         return $this;
     }
 
     public function setIncludeDisabled(bool $value): self
     {
         $this->includeDisabled = $value;
+
         return $this;
     }
 
     public function setReturnExternalData(array $data): self
     {
         $this->returnExternalData = $data;
+
         return $this;
     }
 

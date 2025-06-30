@@ -6,8 +6,8 @@ use IikoApi\Entity\Requests\BaseRequest;
 
 class ProductOrderItem extends BaseRequest
 {
-     /**
-     * Enum: Product, Compound.
+    /**
+     * Domain\Enums: Product, Compound.
      */
     protected string $type = 'Product';
 
@@ -30,15 +30,14 @@ class ProductOrderItem extends BaseRequest
      */
     protected ?float $price = null;
 
-     /**
+    /**
      * Unique identifier of the item in the order. MUST be unique for the whole system. Therefore it must be generated with Guid.NewGuid().
      *
      * - If sent null, it generates automatically on iikoTransport side.
      */
     protected ?string $positionId = null;
 
-
-     /**
+    /**
      * Quantity.
      *
      * [ 0 .. 999.999 ]
@@ -55,7 +54,6 @@ class ProductOrderItem extends BaseRequest
      */
     protected ?ComboInformation $comboInformation = null;
 
-
     /**
      * Comment.
      *
@@ -63,9 +61,8 @@ class ProductOrderItem extends BaseRequest
      */
     protected ?string $comment = null;
 
-
     public function __construct(
-        string $productId, 
+        string $productId,
         float $amount,
         ?array $modifiers = null,
         ?float $price = null,
@@ -73,8 +70,7 @@ class ProductOrderItem extends BaseRequest
         ?string $productSizeId = null,
         ?ComboInformation $comboInformation = null,
         ?string $comment = null
-    )
-    {
+    ) {
         $this->productId = $productId;
         $this->amount = $amount;
         $this->modifiers = $modifiers;
@@ -84,5 +80,4 @@ class ProductOrderItem extends BaseRequest
         $this->comboInformation = $comboInformation;
         $this->comment = $comment ? mb_substr($comment, 0, 255) : null;
     }
-
 }

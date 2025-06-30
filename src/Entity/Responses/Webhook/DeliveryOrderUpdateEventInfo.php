@@ -2,21 +2,21 @@
 
 namespace IikoApi\Entity\Responses\Webhook;
 
-use IikoApi\Enum\OrderCreationStatus;
-use IikoApi\Entity\Responses\CreateDelivery\ErrorInfo;
+use IikoApi\Domain\Enums\OrderCreationStatus;
 use IikoApi\Entity\Responses\CreateDelivery\DeliveryOrder;
+use IikoApi\Entity\Responses\CreateDelivery\ErrorInfo;
 
 final readonly class DeliveryOrderUpdateEventInfo
 {
     public function __construct(
-        public string    $id,
-        public ?string   $posId,
-        public ?string              $externalNumber,
-        public string              $organizationId,
+        public string $id,
+        public ?string $posId,
+        public ?string $externalNumber,
+        public string $organizationId,
         public int $timestamp,
         public OrderCreationStatus $creationStatus,
-        public ?ErrorInfo          $errorInfo,
-        public ?DeliveryOrder      $order,
+        public ?ErrorInfo $errorInfo,
+        public ?DeliveryOrder $order,
     ) {}
 
     public static function fromArray(array $d): self
@@ -29,7 +29,7 @@ final readonly class DeliveryOrderUpdateEventInfo
             (int) $d('timestamp'),
             OrderCreationStatus::from($d['creationStatus']),
             isset($d['errorInfo']) ? ErrorInfo::fromArray($d['errorInfo']) : null,
-            isset($d['order'])     ? DeliveryOrder::fromArray($d['order']) : null,
+            isset($d['order']) ? DeliveryOrder::fromArray($d['order']) : null,
         );
     }
 }

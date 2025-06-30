@@ -2,7 +2,6 @@
 
 namespace IikoApi\Entity\Requests\CreateDelivery\DeliveryPoint;
 
-
 use IikoApi\Entity\Requests\BaseRequest;
 
 class AddressStreet extends BaseRequest
@@ -40,8 +39,7 @@ class AddressStreet extends BaseRequest
         ?string $id = null,
         ?string $name = null,
         ?string $city = null
-    )
-    {
+    ) {
         $this->classifierId = $classifierId ? mb_substr($classifierId, 0, length: 255) : null;
         $this->id = $id;
         $this->name = $name ? mb_substr($name, 0, 60) : null;

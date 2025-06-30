@@ -2,12 +2,12 @@
 
 namespace IikoApi\Entity\Requests\CreateOrder\TipsPayment;
 
-use IikoApi\Enum\PaymentTypeKind;
+use IikoApi\Domain\Enums\PaymentTypeKind;
 
 class TipsPaymentExternal extends TipsPayment
 {
     /**
-     * Enum: Cash, Card, External.
+     * Domain\Enums: Cash, Card, External.
      */
     protected PaymentTypeKind $paymentTypeKind = PaymentTypeKind::External;
 }

@@ -3,14 +3,14 @@
 namespace IikoApi\Services;
 
 use IikoApi\Constants;
-use IikoApi\Contracts\ApiClientInterface;
-use IikoApi\Auth\TokenAuthenticator;
+use IikoApi\Contracts\Http\ApiClientInterface;
 use IikoApi\Entity\Requests\Dictionary\DiscountsRequest;
 use IikoApi\Entity\Requests\Dictionary\OrderTypesRequest;
 use IikoApi\Entity\Requests\Dictionary\PaymentTypesRequest;
 use IikoApi\Entity\Responses\Dictionary\Discount;
 use IikoApi\Entity\Responses\Dictionary\OrderTypes;
 use IikoApi\Entity\Responses\Dictionary\PaymentTypes;
+use IikoApi\Infrastructure\Auth\TokenAuthenticator;
 
 class DictionaryService
 {
@@ -19,41 +19,31 @@ class DictionaryService
         protected TokenAuthenticator $auth
     ) {}
 
-
     /**
      * Summary of getPaymentTypes
-     * @param \IikoApi\Entity\Requests\Dictionary\PaymentTypesRequest $filter
-     * @return PaymentTypes
      */
     public function getPaymentTypes(PaymentTypesRequest $filter): PaymentTypes
     {
-        $token = $this->auth->getToken();
-
         $response = $this->client->request(
             'POST',
             Constants::PAYMENT_TYPES_URL,
             $filter->prepareRequest(),
-            ['Authorization' => "Bearer $token"]
+            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return PaymentTypes::fromArray($response);
     }
 
-
     /**
      * Summary of getOrderTypes
-     * @param \IikoApi\Entity\Requests\Dictionary\OrderTypesRequest $filter
-     * @return OrderTypes
      */
     public function getOrderTypes(OrderTypesRequest $filter): OrderTypes
     {
-        $token = $this->auth->getToken();
-
         $response = $this->client->request(
             'POST',
             Constants::ORDER_TYPES,
             $filter->prepareRequest(),
-            ['Authorization' => "Bearer $token"]
+            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return OrderTypes::fromArray($response);
@@ -61,21 +51,16 @@ class DictionaryService
 
     /**
      * Summary of getDiscounts
-     * @param \IikoApi\Entity\Requests\Dictionary\DiscountsRequest $filter
-     * @return Discount
      */
     public function getDiscounts(DiscountsRequest $filter): Discount
     {
-        $token = $this->auth->getToken();
-
         $response = $this->client->request(
             'POST',
             Constants::DISCOUNTS_URL,
             $filter->prepareRequest(),
-            ['Authorization' => "Bearer $token"]
+            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return Discount::fromArray($response);
     }
-
 }

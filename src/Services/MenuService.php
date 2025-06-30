@@ -3,11 +3,10 @@
 namespace IikoApi\Services;
 
 use IikoApi\Constants;
-use IikoApi\Contracts\ApiClientInterface;
-use IikoApi\Auth\TokenAuthenticator;
+use IikoApi\Contracts\Http\ApiClientInterface;
 use IikoApi\Entity\Requests\Menu\MenuRequest;
 use IikoApi\Entity\Responses\Menu\Nomenclature;
-
+use IikoApi\Infrastructure\Auth\TokenAuthenticator;
 
 class MenuService
 {
@@ -18,13 +17,11 @@ class MenuService
 
     public function getMenu(MenuRequest $filter): Nomenclature
     {
-        $token = $this->auth->getToken();
-
         $response = $this->client->request(
             'POST',
             Constants::NOMENCLATURE_URL,
             $filter->prepareRequest(),
-            ['Authorization' => "Bearer $token"]
+            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return Nomenclature::fromArray($response);

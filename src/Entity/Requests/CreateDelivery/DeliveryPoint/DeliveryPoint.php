@@ -2,7 +2,6 @@
 
 namespace IikoApi\Entity\Requests\CreateDelivery\DeliveryPoint;
 
-
 use IikoApi\Entity\Requests\BaseRequest;
 
 class DeliveryPoint extends BaseRequest

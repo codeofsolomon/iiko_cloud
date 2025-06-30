@@ -5,9 +5,9 @@ namespace IikoApi\Entity\Responses\CreateDelivery;
 final readonly class DeletionMethod
 {
     public function __construct(
-        public string       $id,
-        public RemovalType  $removalType,
-        public ?string      $comment,
+        public string $id,
+        public RemovalType $removalType,
+        public ?string $comment,
     ) {}
 
     public static function fromArray(array $d): self

@@ -2,9 +2,8 @@
 
 namespace IikoApi\Entity\Requests\CreateDelivery\DeliveryPoint;
 
-
+use IikoApi\Domain\Enums\OrderAddressType;
 use IikoApi\Entity\Requests\BaseRequest;
-use IikoApi\Enum\OrderAddressType;
 
 class Address extends BaseRequest
 {
@@ -71,12 +70,11 @@ class Address extends BaseRequest
 
     protected OrderAddressType $type = OrderAddressType::Legacy;
 
-
     protected ?string $line1 = null;
 
     public function __construct(
         OrderAddressType $type = OrderAddressType::Legacy,
-        ?AddressStreet $street = null, 
+        ?AddressStreet $street = null,
         ?string $house = null,
         ?string $building = null,
         ?string $flat = null,
@@ -85,8 +83,7 @@ class Address extends BaseRequest
         ?string $doorphone = null,
         ?string $regionId = null,
         ?string $line1 = null,
-    )
-    {
+    ) {
         $this->type = $type;
         $this->street = $street;
         $this->house = $house ? mb_substr($house, 0, 255) : null;

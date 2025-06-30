@@ -18,9 +18,7 @@ class DiscountsInfo extends BaseRequest
      */
     protected ?array $discounts = null;
 
-
     protected ?bool $fixedLoyaltyDiscounts = null;
-
 
     /**
      * Track of discount card to be applied to order.
@@ -33,7 +31,7 @@ class DiscountsInfo extends BaseRequest
     /**
      * Discounts/surcharges.
      *
-     * @param (DiscountIikoCard|DiscountRMS)[] $discounts
+     * @param  (DiscountIikoCard|DiscountRMS)[]  $discounts
      */
     public function setDiscounts(?array $discounts): void
     {

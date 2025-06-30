@@ -38,13 +38,12 @@ class Modifier extends BaseRequest
     protected ?string $positionId = null;
 
     public function __construct(
-        string $productId, 
+        string $productId,
         float $amount,
         ?string $productGroupId = null,
         ?float $price = null,
         ?string $positionId = null
-    )
-    {
+    ) {
         $this->productId = $productId;
         $this->amount = $amount;
         $this->productGroupId = $productGroupId;

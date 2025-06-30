@@ -4,7 +4,6 @@ namespace IikoApi\Entity\Requests\CreateOrder\DiscountsInfo;
 
 use IikoApi\Entity\Requests\BaseRequest;
 
-
 class DiscountItem extends BaseRequest
 {
     /**

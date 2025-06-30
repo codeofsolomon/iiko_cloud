@@ -12,7 +12,7 @@ final readonly class Size
     public static function fromArray(array $data): self
     {
         return new self(
-            id:   $data['id'],
+            id: $data['id'],
             name: $data['name'],
         );
     }

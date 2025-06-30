@@ -35,16 +35,19 @@
         "guzzlehttp/guzzle": "^7.9"
     },
     "require-dev": {
-        "orchestra/testbench": "^10"
+        "orchestra/testbench": "^10",
+        "laravel/pint": "dev-main"
     },
     "extra": {
         "laravel": {
             "providers": [
-                "IikoApi\\IikoApiServiceProvider"
+                "IikoApi\\Providers\\IikoApiServiceProvider"
             ]
         }
     },
     "scripts": {
+        "pint":      "vendor/bin/pint",
+        "pint:test": "vendor/bin/pint --test -v",
         "test": "./vendor/bin/phpunit"
     }
 }

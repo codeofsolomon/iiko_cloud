@@ -24,7 +24,7 @@ class LoyaltyInfo extends BaseRequest
     }
 
     /**
-     * @param string[]|null $applicableManualConditions
+     * @param  string[]|null  $applicableManualConditions
      */
     public function setApplicableManualConditions(?array $applicableManualConditions): void
     {

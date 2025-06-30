@@ -8,7 +8,7 @@ class TableOrderFilter extends BaseRequest
 {
     public function __construct(
         private array $orderStatuses = [],
-        private array $itemStatuses  = [],
-        private bool  $errors        = false,
+        private array $itemStatuses = [],
+        private bool $errors = false,
     ) {}
 }

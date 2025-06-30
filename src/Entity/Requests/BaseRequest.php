@@ -4,7 +4,6 @@ namespace IikoApi\Entity\Requests;
 
 use JsonSerializable;
 
-
 /**
  * Abstract base class for all request data transfer objects (DTOs).
  *
@@ -16,12 +15,9 @@ use JsonSerializable;
  * Extend this class in each specific request DTO to reuse
  * `prepareRequest()` logic and enable native JSON serialization
  * via `json_encode()`.
- *
- * @package IikoApi\Entity\Requests
  */
 abstract class BaseRequest implements JsonSerializable
 {
-    
     /**
      * Generates a cleaned array representation of the request payload.
      *
@@ -44,7 +40,7 @@ abstract class BaseRequest implements JsonSerializable
                 continue;
             }
 
-            if (!\is_object($this->{$key}) && !is_array($this->{$key})) {
+            if (! \is_object($this->{$key}) && ! is_array($this->{$key})) {
                 $dynamic[$key] = $this->{$key};
             } elseif (is_array($this->{$key})) {
                 foreach ($this->{$key} as $k => $v) {
@@ -52,7 +48,7 @@ abstract class BaseRequest implements JsonSerializable
                         $array_from_object = \get_object_vars($v);
 
                         $array_from_object_null_filtered = \array_filter($array_from_object);
-                        if (!empty($array_from_object_null_filtered)) {
+                        if (! empty($array_from_object_null_filtered)) {
                             $dynamic[$key][] = $array_from_object_null_filtered;
                         }
                     } else {
@@ -69,7 +65,6 @@ abstract class BaseRequest implements JsonSerializable
 
         return $dynamic;
     }
-
 
     /**
      * Implements JsonSerializable to allow direct use with json_encode().

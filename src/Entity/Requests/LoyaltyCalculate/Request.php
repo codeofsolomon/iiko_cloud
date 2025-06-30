@@ -4,6 +4,7 @@ namespace IikoApi\Entity\Requests\LoyaltyCalculate;
 
 use IikoApi\Entity\Requests\BaseRequest;
 use IikoApi\Entity\Requests\CreateDelivery\Order;
+
 class Request extends BaseRequest
 {
     protected string $organizationId;
@@ -111,7 +112,7 @@ class Request extends BaseRequest
     }
 
     /**
-     * @param string[] $availablePaymentMarketingCampaignIds
+     * @param  string[]  $availablePaymentMarketingCampaignIds
      */
     public function setAvailablePaymentMarketingCampaignIds(array $availablePaymentMarketingCampaignIds): void
     {
@@ -127,7 +128,7 @@ class Request extends BaseRequest
     }
 
     /**
-     * @param string[] $applicableManualConditions
+     * @param  string[]  $applicableManualConditions
      */
     public function setApplicableManualConditions(array $applicableManualConditions): void
     {
@@ -143,7 +144,7 @@ class Request extends BaseRequest
     }
 
     /**
-     * @param DynamicDiscount[] $dynamicDiscounts
+     * @param  DynamicDiscount[]  $dynamicDiscounts
      */
     public function setDynamicDiscounts(array $dynamicDiscounts): void
     {

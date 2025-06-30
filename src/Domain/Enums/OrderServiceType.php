@@ -1,0 +1,11 @@
+<?php
+
+namespace IikoApi\Domain\Enums;
+
+/** Из `/api/1/deliveries/order_types` — три фиксированных значения */
+enum OrderServiceType: string
+{
+    case Common = 'Common';
+    case DeliveryByCourier = 'DeliveryByCourier';
+    case DeliveryByClient = 'DeliveryByClient';
+}

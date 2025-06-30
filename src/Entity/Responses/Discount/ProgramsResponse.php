@@ -9,7 +9,7 @@ final readonly class ProgramsResponse
     public static function fromArray(array $d): self
     {
         return new self(
-            array_map([ProgramItem::class,'fromArray'], $d['Programs'] ?? [])
+            array_map([ProgramItem::class, 'fromArray'], $d['Programs'] ?? [])
         );
     }
 }

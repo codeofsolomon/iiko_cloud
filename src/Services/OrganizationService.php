@@ -2,11 +2,11 @@
 
 namespace IikoApi\Services;
 
-use IikoApi\Contracts\ApiClientInterface;
-use IikoApi\Auth\TokenAuthenticator;
-use IikoApi\Entity\Requests\Organization\OrganizationsRequest;
 use IikoApi\Constants;
+use IikoApi\Contracts\Http\ApiClientInterface;
+use IikoApi\Entity\Requests\Organization\OrganizationsRequest;
 use IikoApi\Entity\Responses\Organization\Organization;
+use IikoApi\Infrastructure\Auth\TokenAuthenticator;
 
 class OrganizationService
 {
@@ -15,12 +15,9 @@ class OrganizationService
         protected TokenAuthenticator $auth
     ) {}
 
-    
     public function getOrganizations(?OrganizationsRequest $filter): array
     {
-        $token = $this->auth->getToken();
-
-        $filter ??= new OrganizationsRequest();
+        $filter ??= new OrganizationsRequest;
 
         $organizations = [];
 
@@ -28,7 +25,7 @@ class OrganizationService
             'POST',
             Constants::ORGANIZATIONS_URL,
             $filter->prepareRequest(),
-            ['Authorization' => "Bearer $token"]
+            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         foreach ($response['organizations'] as $value) {
@@ -36,6 +33,6 @@ class OrganizationService
         }
 
         return $organizations;
-       
+
     }
 }

@@ -24,12 +24,11 @@ class ComboInformation extends BaseRequest
     protected ?string $comboGroupName = null;
 
     public function __construct(
-        string $comboId, 
-        string $comboSourceId, 
+        string $comboId,
+        string $comboSourceId,
         string $comboGroupId,
         ?string $comboGroupName = null
-    )
-    {
+    ) {
         $this->comboId = $comboId;
         $this->comboSourceId = $comboSourceId;
         $this->comboGroupId = $comboGroupId;

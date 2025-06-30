@@ -2,8 +2,8 @@
 
 namespace IikoApi\Entity\Requests\CreateOrder\TipsPayment;
 
+use IikoApi\Domain\Enums\PaymentTypeKind;
 use IikoApi\Entity\Requests\BaseRequest;
-use IikoApi\Enum\PaymentTypeKind;
 use IikoApi\Entity\Requests\CreateOrder\Payment\PaymentAdditionalData;
 
 class TipsPayment extends BaseRequest
@@ -48,17 +48,15 @@ class TipsPayment extends BaseRequest
 
     protected ?bool $isPrepay = null;
 
-
     public function __construct(
-        string $tipsTypeId, 
-        float $sum, 
+        string $tipsTypeId,
+        float $sum,
         string $paymentTypeId,
         ?bool $isProcessedExternally = null,
         ?PaymentAdditionalData $paymentAdditionalData = null,
         ?bool $isFiscalizedExternally = null,
         ?bool $isPrepay = null
-    )
-    {
+    ) {
         $this->tipsTypeId = $tipsTypeId;
         $this->sum = $sum;
         $this->paymentTypeId = $paymentTypeId;
@@ -97,5 +95,4 @@ class TipsPayment extends BaseRequest
     {
         $this->isFiscalizedExternally = $isFiscalizedExternally;
     }
-
 }
