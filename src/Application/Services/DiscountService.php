@@ -2,7 +2,6 @@
 
 namespace IikoApi\Application\Services;
 
-use IikoApi\Application\Contracts\Http\ApiClientInterface;
 use IikoApi\Constants;
 use IikoApi\Entity\Requests\Discount\GetCouponRequest;
 use IikoApi\Entity\Requests\Discount\GetCouponSeriesRequest;
@@ -14,25 +13,18 @@ use IikoApi\Entity\Responses\Discount\CouponsBySeriesResponse;
 use IikoApi\Entity\Responses\Discount\CouponSeriesResponse;
 use IikoApi\Entity\Responses\Discount\ProgramsResponse;
 use IikoApi\Entity\Responses\LoyaltyCalculation\LoyaltyCalculationResponse;
-use IikoApi\Infrastructure\Auth\TokenAuthenticator;
 
-class DiscountService
+final class DiscountService extends BaseService
 {
-    public function __construct(
-        protected ApiClientInterface $client,
-        protected TokenAuthenticator $auth
-    ) {}
-
     /**
      * Summary of getNonActivedCoupons
      */
     public function getNonActivedCoupons(GetNonActivatedCouponsRequest $filter): CouponsBySeriesResponse
     {
-        $response = $this->client->request(
+        $response = $this->authorizedRequest(
             'POST',
             Constants::NON_ACTIVATED_COUPON,
             $filter->prepareRequest(),
-            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return CouponsBySeriesResponse::fromArray($response);
@@ -43,11 +35,10 @@ class DiscountService
      */
     public function getNonActivedCouponSeries(GetCouponSeriesRequest $filter): CouponSeriesResponse
     {
-        $response = $this->client->request(
+        $response = $this->authorizedRequest(
             'POST',
             Constants::NON_ACTIVATED_SERIES,
             $filter->prepareRequest(),
-            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return CouponSeriesResponse::fromArray($response);
@@ -58,11 +49,10 @@ class DiscountService
      */
     public function getCouponInfo(GetCouponRequest $filter): CouponInfoResponse
     {
-        $response = $this->client->request(
+        $response = $this->authorizedRequest(
             'POST',
             Constants::COUPON_INFO,
             $filter->prepareRequest(),
-            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return CouponInfoResponse::fromArray($response);
@@ -73,11 +63,10 @@ class DiscountService
      */
     public function getPrograms(ProgramsRequest $filter): ProgramsResponse
     {
-        $response = $this->client->request(
+        $response = $this->authorizedRequest(
             'POST',
             Constants::PROGRAM,
             $filter->prepareRequest(),
-            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return ProgramsResponse::fromArray($response);
@@ -88,11 +77,10 @@ class DiscountService
      */
     public function calculate(Request $request): LoyaltyCalculationResponse
     {
-        $response = $this->client->request(
+        $response = $this->authorizedRequest(
             'POST',
             Constants::LOYALTY_CALCULATE,
             $request->prepareRequest(),
-            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return LoyaltyCalculationResponse::fromArray($response);

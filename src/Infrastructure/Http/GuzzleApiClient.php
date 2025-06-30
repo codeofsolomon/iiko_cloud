@@ -1,59 +1,57 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Infrastructure\Http;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Client as Guzzle;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use IikoApi\Application\Contracts\Http\ApiClientInterface;
-use IikoApi\Constants;
-use IikoApi\Domain\Exceptions as Ex;
+use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Log\LoggerInterface;
 
 class GuzzleApiClient implements ApiClientInterface
 {
     public function __construct(
-        protected Client $client
+        private readonly Guzzle $guzzle,
+        private readonly LoggerInterface $logger
     ) {}
 
-    public function request(string $method, string $uri, array $params = [], array $headers = []): array
+    public static function build(string $baseUri, float $timeout, LoggerInterface $logger): self
     {
-        try {
-            $options = ['headers' => $headers];
-            if ($method === 'GET') {
-                $options['query'] = $params;
-            } else {
-                $options['json'] = $params;
-            }
+        $stack = HandlerStack::create();
+        $stack->push(Middleware::retry(
+            static fn (
+                int $retries,
+                RequestInterface $request,
+                ?ResponseInterface $response
+            ): bool => $retries < 3 && ($response?->getStatusCode() ?? 0) >= 500
+        ));
 
-            $response = $this->client->request($method, $uri, $options);
-        } catch (GuzzleException $e) {
-            throw new Ex\ServerException('Network or transport error: '.$e->getMessage(), 500);
-        }
+        $guzzle = new Guzzle([
+            'base_uri' => $baseUri,
+            'timeout' => $timeout,
+            'handler' => $stack,
+        ]);
 
-        return $this->handleResponse($response);
+        return new self($guzzle, $logger);
     }
 
-    private function handleResponse(ResponseInterface $response): array
+    public function send(RequestInterface $request): ResponseInterface
     {
-        $status = $response->getStatusCode();
-        $json = json_decode($response->getBody()->getContents(), true);
+        $this->logger->debug('[iiko] REQUEST', [
+            'method' => $request->getMethod(),
+            'uri' => (string) $request->getUri(),
+        ]);
 
-        if ($status >= 200 && $status < 300) {
-            return $json ?? [];
-        }
+        $response = $this->guzzle->send($request);
 
-        $errMsg = $json[Constants::ERROR_DESCRIPTION] ?? 'Unknown error';
+        $this->logger->debug('[iiko] RESPONSE', [
+            'code' => $response->getStatusCode(),
+        ]);
 
-        return match (true) {
-            $status === 400 => throw new Ex\BadRequestException($errMsg, $status),
-            $status === 401 => throw new Ex\UnauthorizedException($errMsg, $status),
-            $status === 403 => throw new Ex\ForbiddenException($errMsg, $status),
-            $status === 408 => throw new Ex\RequestTimeoutException($errMsg, $status),
-            $status === 404 => throw new Ex\NotFoundException($errMsg, $status),
-            $status === 429 => throw new Ex\TooManyRequestsException($errMsg, $status),
-            $status >= 500 => throw new Ex\ServerException($errMsg, $status),
-            default => throw new Ex\UnexpectedResponseException($errMsg, $status),
-        };
-
+        return $response;
     }
 }

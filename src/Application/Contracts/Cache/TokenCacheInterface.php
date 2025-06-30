@@ -1,10 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Application\Contracts\Cache;
 
 interface TokenCacheInterface
 {
-    public function get(string $login): ?string;
-
-    public function put(string $login, string $token, int $ttlSeconds): void;
+    public function remember(string $cacheKey, int $ttlSeconds, callable $callback): string;
 }

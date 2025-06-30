@@ -1,32 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Application\Services;
 
-use IikoApi\Application\Contracts\Http\ApiClientInterface;
 use IikoApi\Constants;
 use IikoApi\Entity\Requests\Customer\CustomerCreateOrUpdateRequest;
 use IikoApi\Entity\Requests\Customer\CustomerInfoRequest;
 use IikoApi\Entity\Responses\Customer\CreateOrUpdateCustomerResponse;
 use IikoApi\Entity\Responses\Customer\Customer;
-use IikoApi\Infrastructure\Auth\TokenAuthenticator;
 
-class CustomerService
+final class CustomerService extends BaseService
 {
-    public function __construct(
-        protected ApiClientInterface $client,
-        protected TokenAuthenticator $auth
-    ) {}
-
     /**
      * Summary of getCustomer
      */
     public function getCustomer(CustomerInfoRequest $request): Customer
     {
-        $response = $this->client->request(
+        $response = $this->authorizedRequest(
             'POST',
             Constants::CUSTOMER_INFO,
             $request->prepareRequest(),
-            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return Customer::fromArray($response);
@@ -37,11 +31,10 @@ class CustomerService
      */
     public function createOrUpdateCustomer(CustomerCreateOrUpdateRequest $request): CreateOrUpdateCustomerResponse
     {
-        $response = $this->client->request(
+        $response = $this->authorizedRequest(
             'POST',
             Constants::CUSTOMER_CREATE_OR_UPDATE,
             $request->prepareRequest(),
-            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return CreateOrUpdateCustomerResponse::fromArray($response);

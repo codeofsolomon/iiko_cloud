@@ -1,18 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Providers;
 
-use GuzzleHttp\Client as GuzzleClient;
 use IikoApi\Application\Contracts\Auth\AuthenticatorInterface;
 use IikoApi\Application\Contracts\Cache\TokenCacheInterface;
 use IikoApi\Application\Contracts\Http\ApiClientInterface;
-use IIkoApi\Constants;
 use IIkoApi\IikoApiClient;
 use IikoApi\Infrastructure\Auth\TokenAuthenticator;
 use IikoApi\Infrastructure\Cache\LaravelTokenCache;
 use IikoApi\Infrastructure\Http\GuzzleApiClient;
 use Illuminate\Cache\CacheManager;
-use Illuminate\Contracts\Cache\Repository as CacheStore;
+use Illuminate\Contracts\Config\Repository as ConfigRepo;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 
 class IikoApiServiceProvider extends BaseServiceProvider
@@ -34,37 +34,46 @@ class IikoApiServiceProvider extends BaseServiceProvider
      */
     public function register(): void
     {
-        // Merge default config
-        $this->mergeConfigFrom(__DIR__.'/../../config/iiko-api.php', 'iiko-api');
+        /** @var ConfigRepo $config */
+        $config = $this->app['config'];
 
-        $guzzle = new GuzzleClient(['base_uri' => Constants::API_URL, 'timeout' => (float) config('iiko-api.timeout')]);
-
-        $this->app->bind(ApiClientInterface::class, fn () => new GuzzleApiClient($guzzle));
-
-        // Bind token cache (uses selected CACHE_DRIVER)
-        $this->app->bind(TokenCacheInterface::class, function () {
-            /** @var CacheStore $store */
-            $store = app(CacheManager::class)->store();
-
-            return new LaravelTokenCache($store);
+        // 1) low-level HTTP client
+        $this->app->singleton(ApiClientInterface::class, function () use ($config) {
+            return GuzzleApiClient::build(
+                baseUri: $config->get('iiko-api.base_uri'),
+                timeout: (float) $config->get('iiko-api.timeout'),
+                logger: $this->app->make(\Psr\Log\LoggerInterface::class)
+            );
         });
 
-        // Authenticator singleton
-        $this->app->singleton(AuthenticatorInterface::class, function ($app) {
+        // 2) token cache
+        $this->app->bind(TokenCacheInterface::class, function () use ($config) {
+            /** @var CacheManager $cache */
+            $cache = $this->app->make(CacheManager::class);
+
+            return new LaravelTokenCache(
+                $config->get('iiko-api.cache_store')
+                    ? $cache->store($config->get('iiko-api.cache_store'))
+                    : $cache->store()
+            );
+        });
+
+        // 3) authenticator
+        $this->app->singleton(AuthenticatorInterface::class, function () use ($config) {
             return new TokenAuthenticator(
-                $app->make(ApiClientInterface::class),
-                $app->make(TokenCacheInterface::class),
-                config('iiko-api.login')
+                api          : $this->app->make(ApiClientInterface::class),
+                cache        : $this->app->make(TokenCacheInterface::class),
+                requestFactory: $this->app->make(\Psr\Http\Message\RequestFactoryInterface::class),
+                login        : $config->get('iiko-api.login'),
+                ttlFallback  : (int) $config->get('iiko-api.token_cache_ttl')
             );
         });
 
-        // Main client
-        $this->app->singleton(IikoApiClient::class, function ($app) {
-            return new IikoApiClient(
-                $app->make(ApiClientInterface::class),
-                $app->make(AuthenticatorInterface::class)
-            );
-        });
+        // 4) facade-like main client
+        $this->app->singleton(IikoApiClient::class, fn () => new IikoApiClient(
+            $this->app->make(ApiClientInterface::class),
+            $this->app->make(AuthenticatorInterface::class)
+        ));
 
         $this->app->alias(IikoApiClient::class, 'iiko-api');
     }

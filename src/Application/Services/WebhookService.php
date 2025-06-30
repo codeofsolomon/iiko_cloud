@@ -7,7 +7,7 @@ use IikoApi\Constants;
 use IikoApi\Entity\Requests\Webhook\Request;
 use IikoApi\Infrastructure\Auth\TokenAuthenticator;
 
-class WebhookService
+final class WebhookService extends BaseService
 {
     public function __construct(
         protected ApiClientInterface $client,
@@ -16,11 +16,10 @@ class WebhookService
 
     public function updateWebhook(Request $request): string
     {
-        $response = $this->client->request(
+        $response = $this->authorizedRequest(
             'POST',
             Constants::REGIONS,
             $request->prepareRequest(),
-            ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
         return $response['correlationId'];

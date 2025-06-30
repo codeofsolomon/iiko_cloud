@@ -1,43 +1,55 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Infrastructure\Auth;
 
+use GuzzleHttp\Psr7\Utils;
 use IikoApi\Application\Contracts\Auth\AuthenticatorInterface;
 use IikoApi\Application\Contracts\Cache\TokenCacheInterface;
 use IikoApi\Application\Contracts\Http\ApiClientInterface;
 use IIkoApi\Constants;
 use IikoApi\Domain\Exceptions\UnauthorizedException;
+use Psr\Http\Message\RequestFactoryInterface;
 
 final class TokenAuthenticator implements AuthenticatorInterface
 {
+    private const CACHE_KEY = 'iiko_cloud:access_token';
+
     public function __construct(
-        private ApiClientInterface $http,
+        private ApiClientInterface $api,
         private TokenCacheInterface $cache,
-        private string $login = '',
-        private int $skew = 60, // «запас» до истечения
-    ) {
-        $this->login = $this->login ?: config('iiko-api.login');
-    }
+        private readonly RequestFactoryInterface $requestFactory,
+        private string $login,
+        private readonly int $ttlFallback // «запас» до истечения
+    ) {}
 
     public function token(): string
     {
-        // 1️⃣  Берём из кеша
-        if ($cached = $this->cache->get($this->login)) {
-            return $cached;
+        return $this->cache->remember(
+            self::CACHE_KEY,
+            $this->ttlFallback,
+            fn () => $this->requestNewToken()
+        );
+    }
+
+    private function requestNewToken(): string
+    {
+        $req = $this->requestFactory->createRequest('POST', Constants::ACCESS_TOKEN_URL)
+            ->withHeader('Content-Type', 'application/json')
+            ->withBody(Utils::streamFor(json_encode([
+                Constants::API_LOGIN => $this->login,
+            ], JSON_THROW_ON_ERROR)));
+
+        $res = $this->api->send($req);
+
+        if ($res->getStatusCode() !== 200) {
+            throw new UnauthorizedException('Unable to fetch access token');
         }
 
-        $response = $this->http->request('POST', Constants::ACCESS_TOKEN_URL, [
-            Constants::API_LOGIN => $this->login,
-        ]);
+        /** @var array{token:string,expiresIn:int} $data */
+        $data = json_decode((string) $res->getBody(), true, 512, JSON_THROW_ON_ERROR);
 
-        if (! isset($response['token']) || empty($response['token'])) {
-            throw new UnauthorizedException('Authorization failed: token is missing');
-        }
-
-        $ttl = max(60, (int) ($response['expiresIn'] ?? 3600) - $this->skew); // минимум минута
-
-        $this->cache->put($this->login, $response['token'], $ttl);
-
-        return $response['token'];
+        return $data['token'];
     }
 }

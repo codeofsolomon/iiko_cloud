@@ -1,26 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Infrastructure\Cache;
 
 use IikoApi\Application\Contracts\Cache\TokenCacheInterface;
-use Illuminate\Contracts\Cache\Repository as Cache;
+use Illuminate\Contracts\Cache\Repository as CacheRepository;
 
 final readonly class LaravelTokenCache implements TokenCacheInterface
 {
-    public function __construct(private Cache $store) {}
+    public function __construct(
+        private readonly CacheRepository $cache
+    ) {}
 
-    public function get(string $login): ?string
+    public function remember(string $cacheKey, int $ttlSeconds, callable $callback): string
     {
-        return $this->store->get($this->key($login));
-    }
+        /** @var string $token */
+        $token = $this->cache->remember($cacheKey, $ttlSeconds, $callback);
 
-    public function put(string $login, string $token, int $ttlSeconds): void
-    {
-        $this->store->put($this->key($login), $token, $ttlSeconds);
-    }
-
-    private function key(string $login): string
-    {
-        return 'iiko:token:'.md5($login);
+        return $token;
     }
 }
