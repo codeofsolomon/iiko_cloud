@@ -28,6 +28,6 @@ return [
     | но можно жёстко ограничить сверху.
     |
     */
-    'token_cache_ttl' => env('IIKO_TOKEN_TTL', 60 * 60 * 23), // 23 ч
+    'token_cache_ttl' => env('IIKO_TOKEN_TTL', 60 * 59), // 59 мин
     'cache_store' => env('IIKO_CACHE_STORE', null),        // null → driver по-умолчанию
 ];

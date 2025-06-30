@@ -27,7 +27,7 @@ class GuzzleApiClient implements ApiClientInterface
                 int $retries,
                 RequestInterface $request,
                 ?ResponseInterface $response
-            ): bool => $retries < 3 && ($response?->getStatusCode() ?? 0) >= 500
+            ): bool => $retries < 2 && ($response?->getStatusCode() ?? 0) >= 500
         ));
 
         $guzzle = new Guzzle([
