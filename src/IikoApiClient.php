@@ -10,6 +10,7 @@ use IikoApi\Services\DeliveryService;
 use IikoApi\Services\DictionaryService;
 use IikoApi\Services\DiscountService;
 use IikoApi\Services\MenuService;
+use IikoApi\Services\OrderService;
 use IikoApi\Services\OrganizationService;
 use IikoApi\Contracts\ApiClientInterface;
 use IikoApi\Auth\TokenAuthenticator;
@@ -67,5 +68,10 @@ class IikoApiClient
     public function webhook(): WebhookService
     {
         return new WebhookService($this->apiClient, $this->authenticator);
+    }
+
+    public function order(): OrderService
+    {
+        return new OrderService($this->apiClient, $this->authenticator);
     }
 }

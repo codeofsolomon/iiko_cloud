@@ -2,12 +2,14 @@
 
 namespace IikoApi\Entity\Responses\CreateDelivery;
 
+use IikoApi\Enum\OrderServiceType;
+
 final readonly class OrderType
 {
     public function __construct(
         public string $id,
         public string $name,
-        public string $orderServiceType
+        public OrderServiceType $orderServiceType
     ) {}
 
     public static function fromArray(array $d): self
@@ -15,7 +17,7 @@ final readonly class OrderType
         return new self(
             id: $d['id'],
             name:    $d['name'],
-            orderServiceType: $d['orderServiceType']
+            orderServiceType: OrderServiceType::from($d['orderServiceType'])
         );
     }
 }

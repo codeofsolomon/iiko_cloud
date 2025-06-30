@@ -7,5 +7,5 @@ enum OrderServiceType: string
 {
     case Common            = 'Common';
     case DeliveryByCourier = 'DeliveryByCourier';
-    case DeliveryPickUp    = 'DeliveryPickUp';
+    case DeliveryByClient    = 'DeliveryByClient';
 }
