@@ -1,9 +1,9 @@
 <?php
 
-namespace IikoApi\Services;
+namespace IikoApi\Application\Services;
 
+use IikoApi\Application\Contracts\Http\ApiClientInterface;
 use IikoApi\Constants;
-use IikoApi\Contracts\Http\ApiClientInterface;
 use IikoApi\Entity\Requests\Organization\OrganizationsRequest;
 use IikoApi\Entity\Responses\Organization\Organization;
 use IikoApi\Infrastructure\Auth\TokenAuthenticator;

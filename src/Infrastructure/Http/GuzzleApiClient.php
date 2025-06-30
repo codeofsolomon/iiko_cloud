@@ -1,11 +1,11 @@
 <?php
 
-namespace IikoApi\Http;
+namespace IikoApi\Infrastructure\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use IikoApi\Application\Contracts\Http\ApiClientInterface;
 use IikoApi\Constants;
-use IikoApi\Contracts\Http\ApiClientInterface;
 use IikoApi\Domain\Exceptions as Ex;
 use Psr\Http\Message\ResponseInterface;
 

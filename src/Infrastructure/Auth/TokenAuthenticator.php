@@ -2,10 +2,10 @@
 
 namespace IikoApi\Infrastructure\Auth;
 
+use IikoApi\Application\Contracts\Auth\AuthenticatorInterface;
+use IikoApi\Application\Contracts\Cache\TokenCacheInterface;
+use IikoApi\Application\Contracts\Http\ApiClientInterface;
 use IIkoApi\Constants;
-use IikoApi\Contracts\Auth\AuthenticatorInterface;
-use IikoApi\Contracts\Cache\TokenCacheInterface;
-use IikoApi\Contracts\Http\ApiClientInterface;
 use IikoApi\Domain\Exceptions\UnauthorizedException;
 
 final class TokenAuthenticator implements AuthenticatorInterface

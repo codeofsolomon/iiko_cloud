@@ -1,29 +1,28 @@
 <?php
 
-namespace IikoApi\Services;
+namespace IikoApi\Application\Services;
 
+use IikoApi\Application\Contracts\Http\ApiClientInterface;
 use IikoApi\Constants;
-use IikoApi\Contracts\Http\ApiClientInterface;
-use IikoApi\Entity\Requests\CreateDelivery\Request;
-use IikoApi\Entity\Responses\CreateDelivery\CreateDeliveryResponse;
+use IikoApi\Entity\Requests\Webhook\Request;
 use IikoApi\Infrastructure\Auth\TokenAuthenticator;
 
-class DeliveryService
+class WebhookService
 {
     public function __construct(
         protected ApiClientInterface $client,
         protected TokenAuthenticator $auth
     ) {}
 
-    public function createDelivery(Request $request): CreateDeliveryResponse
+    public function updateWebhook(Request $request): string
     {
         $response = $this->client->request(
             'POST',
-            Constants::CREATE_DELIVERY_URL,
+            Constants::REGIONS,
             $request->prepareRequest(),
             ['Authorization' => "Bearer {$this->auth->token()}"]
         );
 
-        return CreateDeliveryResponse::fromArray($response);
+        return $response['correlationId'];
     }
 }

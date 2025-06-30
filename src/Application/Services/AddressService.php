@@ -1,9 +1,9 @@
 <?php
 
-namespace IikoApi\Services;
+namespace IikoApi\Application\Services;
 
+use IikoApi\Application\Contracts\Http\ApiClientInterface;
 use IikoApi\Constants;
-use IikoApi\Contracts\Http\ApiClientInterface;
 use IikoApi\Entity\Requests\Address\CitiesRequest;
 use IikoApi\Entity\Requests\Address\RegionsRequest;
 use IikoApi\Entity\Requests\Address\StreetsByCityRequest;

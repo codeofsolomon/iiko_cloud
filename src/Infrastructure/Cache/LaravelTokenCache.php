@@ -2,7 +2,7 @@
 
 namespace IikoApi\Infrastructure\Cache;
 
-use IikoApi\Contracts\Cache\TokenCacheInterface;
+use IikoApi\Application\Contracts\Cache\TokenCacheInterface;
 use Illuminate\Contracts\Cache\Repository as Cache;
 
 final readonly class LaravelTokenCache implements TokenCacheInterface

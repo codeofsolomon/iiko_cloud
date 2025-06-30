@@ -1,9 +1,9 @@
 <?php
 
-namespace IikoApi\Services;
+namespace IikoApi\Application\Services;
 
+use IikoApi\Application\Contracts\Http\ApiClientInterface;
 use IikoApi\Constants;
-use IikoApi\Contracts\Http\ApiClientInterface;
 use IikoApi\Entity\Requests\Customer\CustomerCreateOrUpdateRequest;
 use IikoApi\Entity\Requests\Customer\CustomerInfoRequest;
 use IikoApi\Entity\Responses\Customer\CreateOrUpdateCustomerResponse;

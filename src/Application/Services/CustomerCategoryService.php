@@ -1,9 +1,9 @@
 <?php
 
-namespace IikoApi\Services;
+namespace IikoApi\Application\Services;
 
+use IikoApi\Application\Contracts\Http\ApiClientInterface;
 use IikoApi\Constants;
-use IikoApi\Contracts\Http\ApiClientInterface;
 use IikoApi\Entity\Requests\CustomerCategory\CustomerCategoriesRequest;
 use IikoApi\Entity\Responses\CustomerCategory\CategoryResponse;
 use IikoApi\Entity\Responses\CustomerCategory\CustomerCategoryManageRequest;

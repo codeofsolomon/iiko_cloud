@@ -1,6 +1,6 @@
 <?php
 
-namespace IikoApi\Contracts\Auth;
+namespace IikoApi\Application\Contracts\Auth;
 
 interface AuthenticatorInterface
 {

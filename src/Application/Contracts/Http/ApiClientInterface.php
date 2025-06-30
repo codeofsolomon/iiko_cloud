@@ -1,6 +1,6 @@
 <?php
 
-namespace IikoApi\Contracts\Http;
+namespace IikoApi\Application\Contracts\Http;
 
 interface ApiClientInterface
 {

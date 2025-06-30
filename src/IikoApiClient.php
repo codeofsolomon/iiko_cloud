@@ -2,18 +2,9 @@
 
 namespace IikoApi;
 
-use IikoApi\Contracts\Http\ApiClientInterface;
+use IikoApi\Application\Contracts\Http\ApiClientInterface;
+use IikoApi\Application\Services;
 use IikoApi\Infrastructure\Auth\TokenAuthenticator;
-use IikoApi\Services\AddressService;
-use IikoApi\Services\CustomerCategoryService;
-use IikoApi\Services\CustomerService;
-use IikoApi\Services\DeliveryService;
-use IikoApi\Services\DictionaryService;
-use IikoApi\Services\DiscountService;
-use IikoApi\Services\MenuService;
-use IikoApi\Services\OrderService;
-use IikoApi\Services\OrganizationService;
-use IikoApi\Services\WebhookService;
 
 class IikoApiClient
 {
@@ -22,53 +13,53 @@ class IikoApiClient
         protected TokenAuthenticator $authenticator
     ) {}
 
-    public function address(): AddressService
+    public function address(): Services\AddressService
     {
-        return new AddressService($this->apiClient, $this->authenticator);
+        return new Services\AddressService($this->apiClient, $this->authenticator);
     }
 
-    public function organizations(): OrganizationService
+    public function organizations(): Services\OrganizationService
     {
-        return new OrganizationService($this->apiClient, $this->authenticator);
+        return new Services\OrganizationService($this->apiClient, $this->authenticator);
     }
 
-    public function menu(): MenuService
+    public function menu(): Services\MenuService
     {
-        return new MenuService($this->apiClient, $this->authenticator);
+        return new Services\MenuService($this->apiClient, $this->authenticator);
     }
 
-    public function dictionary(): DictionaryService
+    public function dictionary(): Services\DictionaryService
     {
-        return new DictionaryService($this->apiClient, $this->authenticator);
+        return new Services\DictionaryService($this->apiClient, $this->authenticator);
     }
 
-    public function delivery(): DeliveryService
+    public function delivery(): Services\DeliveryService
     {
-        return new DeliveryService($this->apiClient, $this->authenticator);
+        return new Services\DeliveryService($this->apiClient, $this->authenticator);
     }
 
-    public function customer(): CustomerService
+    public function customer(): Services\CustomerService
     {
-        return new CustomerService($this->apiClient, $this->authenticator);
+        return new Services\CustomerService($this->apiClient, $this->authenticator);
     }
 
-    public function customerCategory(): CustomerCategoryService
+    public function customerCategory(): Services\CustomerCategoryService
     {
-        return new CustomerCategoryService($this->apiClient, $this->authenticator);
+        return new Services\CustomerCategoryService($this->apiClient, $this->authenticator);
     }
 
-    public function discount(): DiscountService
+    public function discount(): Services\DiscountService
     {
-        return new DiscountService($this->apiClient, $this->authenticator);
+        return new Services\DiscountService($this->apiClient, $this->authenticator);
     }
 
-    public function webhook(): WebhookService
+    public function webhook(): Services\WebhookService
     {
-        return new WebhookService($this->apiClient, $this->authenticator);
+        return new Services\WebhookService($this->apiClient, $this->authenticator);
     }
 
-    public function order(): OrderService
+    public function order(): Services\OrderService
     {
-        return new OrderService($this->apiClient, $this->authenticator);
+        return new Services\OrderService($this->apiClient, $this->authenticator);
     }
 }

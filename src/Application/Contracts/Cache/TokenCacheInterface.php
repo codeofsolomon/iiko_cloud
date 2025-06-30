@@ -1,6 +1,6 @@
 <?php
 
-namespace IikoApi\Contracts\Cache;
+namespace IikoApi\Application\Contracts\Cache;
 
 interface TokenCacheInterface
 {
