@@ -6,8 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use IikoApi\Constants;
 use IikoApi\Contracts\Http\ApiClientInterface;
-use IikoApi\Domain\Exceptions\IIkoRequestException;
-use IikoApi\Domain\Exceptions\UnsupportedHttpRequestType;
+use IikoApi\Domain\Exceptions as Ex;
 use Psr\Http\Message\ResponseInterface;
 
 class GuzzleApiClient implements ApiClientInterface
@@ -27,8 +26,8 @@ class GuzzleApiClient implements ApiClientInterface
             }
 
             $response = $this->client->request($method, $uri, $options);
-        } catch (GuzzleException|UnsupportedHttpRequestType $e) {
-            throw new IIkoRequestException('Network or transport error: '.$e->getMessage(), 500);
+        } catch (GuzzleException $e) {
+            throw new Ex\ServerException('Network or transport error: '.$e->getMessage(), 500);
         }
 
         return $this->handleResponse($response);
@@ -36,14 +35,25 @@ class GuzzleApiClient implements ApiClientInterface
 
     private function handleResponse(ResponseInterface $response): array
     {
-        $statusCode = $response->getStatusCode();
+        $status = $response->getStatusCode();
         $json = json_decode($response->getBody()->getContents(), true);
 
-        if ($statusCode >= 400) {
-            $message = $json[Constants::ERROR_DESCRIPTION] ?? 'Unknown error';
-            throw new IIkoRequestException($message, $statusCode);
+        if ($status >= 200 && $status < 300) {
+            return $json ?? [];
         }
 
-        return $json ?? [];
+        $errMsg = $json[Constants::ERROR_DESCRIPTION] ?? 'Unknown error';
+
+        return match (true) {
+            $status === 400 => throw new Ex\BadRequestException($errMsg, $status),
+            $status === 401 => throw new Ex\UnauthorizedException($errMsg, $status),
+            $status === 403 => throw new Ex\ForbiddenException($errMsg, $status),
+            $status === 408 => throw new Ex\RequestTimeoutException($errMsg, $status),
+            $status === 404 => throw new Ex\NotFoundException($errMsg, $status),
+            $status === 429 => throw new Ex\TooManyRequestsException($errMsg, $status),
+            $status >= 500 => throw new Ex\ServerException($errMsg, $status),
+            default => throw new Ex\UnexpectedResponseException($errMsg, $status),
+        };
+
     }
 }

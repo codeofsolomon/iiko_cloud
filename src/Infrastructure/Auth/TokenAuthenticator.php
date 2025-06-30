@@ -6,7 +6,7 @@ use IIkoApi\Constants;
 use IikoApi\Contracts\Auth\AuthenticatorInterface;
 use IikoApi\Contracts\Cache\TokenCacheInterface;
 use IikoApi\Contracts\Http\ApiClientInterface;
-use IikoApi\Domain\Exceptions\IIkoAuthException;
+use IikoApi\Domain\Exceptions\UnauthorizedException;
 
 final class TokenAuthenticator implements AuthenticatorInterface
 {
@@ -31,7 +31,7 @@ final class TokenAuthenticator implements AuthenticatorInterface
         ]);
 
         if (! isset($response['token']) || empty($response['token'])) {
-            throw new IIkoAuthException('Authorization failed: token is missing');
+            throw new UnauthorizedException('Authorization failed: token is missing');
         }
 
         $ttl = max(60, (int) ($response['expiresIn'] ?? 3600) - $this->skew); // минимум минута
