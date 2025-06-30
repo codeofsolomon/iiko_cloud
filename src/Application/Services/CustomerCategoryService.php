@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace IikoApi\Application\Services;
 
 use IikoApi\Constants;
-use IikoApi\Entity\Requests\CustomerCategory\CustomerCategoriesRequest;
-use IikoApi\Entity\Responses\CustomerCategory\CategoryResponse;
-use IikoApi\Entity\Responses\CustomerCategory\CustomerCategoryManageRequest;
+use IikoApi\Domain\Dto\Requests\CustomerCategory\CustomerCategoriesRequest;
+use IikoApi\Domain\Dto\Responses\CustomerCategory\CategoryResponse;
+use IikoApi\Domain\Dto\Responses\CustomerCategory\CustomerCategoryManageRequest;
 
 final class CustomerCategoryService extends BaseService
 {
@@ -19,7 +19,7 @@ final class CustomerCategoryService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::CUSTOMER_CATEGORY,
-            $request->prepareRequest(),
+            $request->toArray(),
         );
 
         return CategoryResponse::fromArray($response);
@@ -33,7 +33,7 @@ final class CustomerCategoryService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::ADD_CUSTOMER_CATEGORY,
-            $request->prepareRequest(),
+            $request->toArray(),
         );
 
         return empty($response);
@@ -47,7 +47,7 @@ final class CustomerCategoryService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::REMOVE_CUSTOMER_CATEGORY,
-            $request->prepareRequest(),
+            $request->toArray(),
         );
 
         return empty($response);

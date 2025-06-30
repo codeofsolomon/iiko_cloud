@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace IikoApi\Application\Services;
 
 use IikoApi\Constants;
-use IikoApi\Entity\Requests\Menu\MenuRequest;
-use IikoApi\Entity\Responses\Menu\Nomenclature;
+use IikoApi\Domain\Dto\Requests\Menu\MenuRequest;
+use IikoApi\Domain\Dto\Responses\Menu\Nomenclature;
 
 final class MenuService extends BaseService
 {
@@ -15,7 +15,7 @@ final class MenuService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::NOMENCLATURE_URL,
-            $filter->prepareRequest(),
+            $filter->toArray(),
         );
 
         return Nomenclature::fromArray($response);

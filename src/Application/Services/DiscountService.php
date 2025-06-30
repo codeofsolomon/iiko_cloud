@@ -5,16 +5,16 @@ declare(strict_types=1);
 namespace IikoApi\Application\Services;
 
 use IikoApi\Constants;
-use IikoApi\Entity\Requests\Discount\GetCouponRequest;
-use IikoApi\Entity\Requests\Discount\GetCouponSeriesRequest;
-use IikoApi\Entity\Requests\Discount\GetNonActivatedCouponsRequest;
-use IikoApi\Entity\Requests\Discount\ProgramsRequest;
-use IikoApi\Entity\Requests\LoyaltyCalculate\Request;
-use IikoApi\Entity\Responses\Discount\CouponInfoResponse;
-use IikoApi\Entity\Responses\Discount\CouponsBySeriesResponse;
-use IikoApi\Entity\Responses\Discount\CouponSeriesResponse;
-use IikoApi\Entity\Responses\Discount\ProgramsResponse;
-use IikoApi\Entity\Responses\LoyaltyCalculation\LoyaltyCalculationResponse;
+use IikoApi\Domain\Dto\Requests\Discount\GetCouponRequest;
+use IikoApi\Domain\Dto\Requests\Discount\GetCouponSeriesRequest;
+use IikoApi\Domain\Dto\Requests\Discount\GetNonActivatedCouponsRequest;
+use IikoApi\Domain\Dto\Requests\Discount\ProgramsRequest;
+use IikoApi\Domain\Dto\Requests\LoyaltyCalculate\Request;
+use IikoApi\Domain\Dto\Responses\Discount\CouponInfoResponse;
+use IikoApi\Domain\Dto\Responses\Discount\CouponsBySeriesResponse;
+use IikoApi\Domain\Dto\Responses\Discount\CouponSeriesResponse;
+use IikoApi\Domain\Dto\Responses\Discount\ProgramsResponse;
+use IikoApi\Domain\Dto\Responses\LoyaltyCalculation\LoyaltyCalculationResponse;
 
 final class DiscountService extends BaseService
 {
@@ -26,7 +26,7 @@ final class DiscountService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::NON_ACTIVATED_COUPON,
-            $filter->prepareRequest(),
+            $filter->toArray(),
         );
 
         return CouponsBySeriesResponse::fromArray($response);
@@ -40,7 +40,7 @@ final class DiscountService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::NON_ACTIVATED_SERIES,
-            $filter->prepareRequest(),
+            $filter->toArray(),
         );
 
         return CouponSeriesResponse::fromArray($response);
@@ -54,7 +54,7 @@ final class DiscountService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::COUPON_INFO,
-            $filter->prepareRequest(),
+            $filter->toArray(),
         );
 
         return CouponInfoResponse::fromArray($response);
@@ -68,7 +68,7 @@ final class DiscountService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::PROGRAM,
-            $filter->prepareRequest(),
+            $filter->toArray(),
         );
 
         return ProgramsResponse::fromArray($response);
@@ -82,7 +82,7 @@ final class DiscountService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::LOYALTY_CALCULATE,
-            $request->prepareRequest(),
+            $request->toArray(),
         );
 
         return LoyaltyCalculationResponse::fromArray($response);

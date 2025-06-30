@@ -5,14 +5,14 @@ declare(strict_types=1);
 namespace IikoApi\Application\Services;
 
 use IikoApi\Constants;
-use IikoApi\Entity\Requests\Address\CitiesRequest;
-use IikoApi\Entity\Requests\Address\RegionsRequest;
-use IikoApi\Entity\Requests\Address\StreetsByCityRequest;
-use IikoApi\Entity\Requests\Address\StreetsByIdRequest;
-use IikoApi\Entity\Responses\Address\CitiesResponse;
-use IikoApi\Entity\Responses\Address\RegionsResponse;
-use IikoApi\Entity\Responses\Address\StreetClassfieirResponse;
-use IikoApi\Entity\Responses\Address\StreetsByCityResponse;
+use IikoApi\Domain\Dto\Requests\Address\CitiesRequest;
+use IikoApi\Domain\Dto\Requests\Address\RegionsRequest;
+use IikoApi\Domain\Dto\Requests\Address\StreetsByCityRequest;
+use IikoApi\Domain\Dto\Requests\Address\StreetsByIdRequest;
+use IikoApi\Domain\Dto\Responses\Address\CitiesResponse;
+use IikoApi\Domain\Dto\Responses\Address\RegionsResponse;
+use IikoApi\Domain\Dto\Responses\Address\StreetClassfieirResponse;
+use IikoApi\Domain\Dto\Responses\Address\StreetsByCityResponse;
 
 final class AddressService extends BaseService
 {
@@ -21,7 +21,7 @@ final class AddressService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::REGIONS,
-            $request->prepareRequest(),
+            $request->toArray(),
         );
 
         return RegionsResponse::fromArray($response);
@@ -35,7 +35,7 @@ final class AddressService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::CITY,
-            $request->prepareRequest(),
+            $request->toArray(),
         );
 
         return CitiesResponse::fromArray($response);
@@ -49,7 +49,7 @@ final class AddressService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::STREETS_BY_CITY,
-            $request->prepareRequest(),
+            $request->toArray(),
         );
 
         return StreetsByCityResponse::fromArray($response);
@@ -63,7 +63,7 @@ final class AddressService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::STREETS_BY_ID_OR_CLASSIFIERLD,
-            $request->prepareRequest(),
+            $request->toArray(),
         );
 
         return StreetClassfieirResponse::fromArray($response);

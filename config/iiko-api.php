@@ -6,7 +6,7 @@ return [
     | Authentication
     |--------------------------------------------------------------------------
     |
-    | Логин  от iikoCloud.
+    | iikoCloud login.
     |
     */
     'login' => env('IIKO_CLOUD_LOGIN'),
@@ -24,8 +24,8 @@ return [
     | Token cache
     |--------------------------------------------------------------------------
     |
-    | TTL автоматически вычисляется из expiresIn ответа,
-    | но можно жёстко ограничить сверху.
+    | The TTL is automatically calculated from the expiresIn value in the response,
+    | but you can set a hard upper limit here.
     |
     */
     'token_cache_ttl' => env('IIKO_TOKEN_TTL', 60 * 59), // 59 мин

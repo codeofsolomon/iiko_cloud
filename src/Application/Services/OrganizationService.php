@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace IikoApi\Application\Services;
 
 use IikoApi\Constants;
-use IikoApi\Entity\Requests\Organization\OrganizationsRequest;
-use IikoApi\Entity\Responses\Organization\Organization;
+use IikoApi\Domain\Dto\Requests\Organization\OrganizationsRequest;
+use IikoApi\Domain\Dto\Responses\Organization\Organization;
 
 final class OrganizationService extends BaseService
 {
@@ -19,7 +19,7 @@ final class OrganizationService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::ORGANIZATIONS_URL,
-            $filter->prepareRequest(),
+            $filter->toArray(),
         );
 
         foreach ($response['organizations'] as $value) {

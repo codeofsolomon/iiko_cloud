@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace IikoApi\Application\Services;
 
 use IikoApi\Constants;
-use IikoApi\Entity\Requests\Dictionary\DiscountsRequest;
-use IikoApi\Entity\Requests\Dictionary\OrderTypesRequest;
-use IikoApi\Entity\Requests\Dictionary\PaymentTypesRequest;
-use IikoApi\Entity\Responses\Dictionary\Discount;
-use IikoApi\Entity\Responses\Dictionary\OrderTypes;
-use IikoApi\Entity\Responses\Dictionary\PaymentTypes;
+use IikoApi\Domain\Dto\Requests\Dictionary\DiscountsRequest;
+use IikoApi\Domain\Dto\Requests\Dictionary\OrderTypesRequest;
+use IikoApi\Domain\Dto\Requests\Dictionary\PaymentTypesRequest;
+use IikoApi\Domain\Dto\Responses\Dictionary\Discount;
+use IikoApi\Domain\Dto\Responses\Dictionary\OrderTypes;
+use IikoApi\Domain\Dto\Responses\Dictionary\PaymentTypes;
 
 final class DictionaryService extends BaseService
 {
@@ -22,7 +22,7 @@ final class DictionaryService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::PAYMENT_TYPES_URL,
-            $filter->prepareRequest(),
+            $filter->toArray(),
         );
 
         return PaymentTypes::fromArray($response);
@@ -36,7 +36,7 @@ final class DictionaryService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::ORDER_TYPES,
-            $filter->prepareRequest(),
+            $filter->toArray(),
         );
 
         return OrderTypes::fromArray($response);
@@ -50,7 +50,7 @@ final class DictionaryService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::DISCOUNTS_URL,
-            $filter->prepareRequest(),
+            $filter->toArray(),
         );
 
         return Discount::fromArray($response);

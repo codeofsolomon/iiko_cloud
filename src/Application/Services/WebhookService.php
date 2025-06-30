@@ -4,24 +4,17 @@ declare(strict_types=1);
 
 namespace IikoApi\Application\Services;
 
-use IikoApi\Application\Contracts\Http\ApiClientInterface;
 use IikoApi\Constants;
-use IikoApi\Entity\Requests\Webhook\Request;
-use IikoApi\Infrastructure\Auth\TokenAuthenticator;
+use IikoApi\Domain\Dto\Requests\Webhook\WebhookRequest;
 
 final class WebhookService extends BaseService
 {
-    public function __construct(
-        protected ApiClientInterface $client,
-        protected TokenAuthenticator $auth
-    ) {}
-
-    public function updateWebhook(Request $request): string
+    public function updateWebhook(WebhookRequest $request): string
     {
         $response = $this->authorizedRequest(
             'POST',
-            Constants::REGIONS,
-            $request->prepareRequest(),
+            Constants::WEBHOOK_UPDATE_SETTINGS,
+            $request->toArray(),
         );
 
         return $response['correlationId'];

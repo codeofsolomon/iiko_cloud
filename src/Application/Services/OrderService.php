@@ -5,8 +5,8 @@ declare(strict_types=1);
 namespace IikoApi\Application\Services;
 
 use IikoApi\Constants;
-use IikoApi\Entity\Requests\CreateDelivery\Request;
-use IikoApi\Entity\Responses\Order\OrderResponse;
+use IikoApi\Domain\Dto\Requests\CreateDelivery\Request;
+use IikoApi\Domain\Dto\Responses\Order\OrderResponse;
 
 final class OrderService extends BaseService
 {
@@ -18,7 +18,7 @@ final class OrderService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::CREATE_ORDER_URL,
-            $request->prepareRequest(),
+            $request->toArray(),
         );
 
         return OrderResponse::fromArray($response);

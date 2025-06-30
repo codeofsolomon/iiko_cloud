@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace IikoApi\Application\Services;
 
 use IikoApi\Constants;
-use IikoApi\Entity\Requests\Customer\CustomerCreateOrUpdateRequest;
-use IikoApi\Entity\Requests\Customer\CustomerInfoRequest;
-use IikoApi\Entity\Responses\Customer\CreateOrUpdateCustomerResponse;
-use IikoApi\Entity\Responses\Customer\Customer;
+use IikoApi\Domain\Dto\Requests\Customer\CustomerCreateOrUpdateRequest;
+use IikoApi\Domain\Dto\Requests\Customer\CustomerInfoRequest;
+use IikoApi\Domain\Dto\Responses\Customer\CreateOrUpdateCustomerResponse;
+use IikoApi\Domain\Dto\Responses\Customer\Customer;
 
 final class CustomerService extends BaseService
 {
@@ -20,7 +20,7 @@ final class CustomerService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::CUSTOMER_INFO,
-            $request->prepareRequest(),
+            $request->toArray(),
         );
 
         return Customer::fromArray($response);
@@ -34,7 +34,7 @@ final class CustomerService extends BaseService
         $response = $this->authorizedRequest(
             'POST',
             Constants::CUSTOMER_CREATE_OR_UPDATE,
-            $request->prepareRequest(),
+            $request->toArray(),
         );
 
         return CreateOrUpdateCustomerResponse::fromArray($response);
