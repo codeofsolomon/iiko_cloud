@@ -18,7 +18,7 @@ class IikoApiClient
 
     public function __call(string $name, array $arguments): BaseService
     {
-        $class = __NAMESPACE__.'\\Services\\'.Str::studly($name).'Service';
+        $class = __NAMESPACE__.'\\Application\\Services\\'.Str::studly($name).'Service';
 
         return new $class($this->api, $this->auth);
     }
