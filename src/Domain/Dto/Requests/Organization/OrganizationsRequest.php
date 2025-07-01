@@ -15,12 +15,11 @@ class OrganizationsRequest extends MinimalRequest
      */
     public function __construct(
         public array $organizationIds = [],
-        public bool $returnAdditionalInfo = false,
-        public bool $includeDisabled = false,
+        public bool $returnAdditionalInfo = true,
+        public bool $includeDisabled = true,
         public array $returnExternalData = [],
 
     ) {
-        Assert::allUuid($organizationIds, 'Каждый organizationId должен быть валидным UUID.');
         Assert::allStringNotEmpty($returnExternalData, 'returnExternalData содержит только непустые строки.');
         parent::__construct($organizationIds);
     }

@@ -23,11 +23,15 @@ abstract class BaseService
         array $options = []
     ): mixed {
         $request = $this->requestFactory->createRequest($method, $uri)
+            ->withHeader('Content-Type', 'application/json')
             ->withHeader('Authorization', 'Bearer '.$this->auth->token());
 
         if ($method !== 'GET') {
-            $request->withHeader('Content-Type', 'application/json')
-                ->withBody(Utils::streamFor($options));
+            // формируем тело один раз
+            $body    = json_encode($options, JSON_THROW_ON_ERROR);
+
+            $request->withHeader('Accept', 'application/json')
+                ->withBody(Utils::streamFor($body));
         } else {
             foreach ($options ?? [] as $key => $value) {
                 $request = $request->withUri(
