@@ -21,8 +21,8 @@ class IikoApiClient
         $class = __NAMESPACE__.'\\Application\\Services\\'.Str::studly($name).'Service';
 
         return new $class(
-            $this->api, 
-            $this->auth, 
+            $this->api,
+            $this->auth,
             app(\Psr\Http\Message\RequestFactoryInterface::class)
         );
     }
