@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Responses\Address;
 
 final readonly class City
@@ -7,7 +9,7 @@ final readonly class City
     public function __construct(
         public string $id,
         public string $name,
-        public string $regionId,        // ← принадлежность региону
+        public string $regionId,
         public ?int $externalRevision,
         public bool $isDeleted,
     ) {}
@@ -18,7 +20,7 @@ final readonly class City
             $d['id'],
             $d['name'],
             $d['regionId'],
-            (int) $d['externalRevision'] ?? null,
+            isset($d['externalRevision']) ? (int) $d['externalRevision'] : null,
             (bool) $d['isDeleted'],
         );
     }

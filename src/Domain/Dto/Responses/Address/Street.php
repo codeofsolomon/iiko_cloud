@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Responses\Address;
 
 final readonly class Street
@@ -9,7 +11,7 @@ final readonly class Street
         public string $name,
         public ?int $externalRevision,
         public bool $isDeleted,
-        public ?string $classifierId
+        public ?string $classifierId,
     ) {}
 
     public static function fromArray(array $d): self
@@ -17,9 +19,9 @@ final readonly class Street
         return new self(
             $d['id'],
             $d['name'],
-            (int) $d['externalRevision'] ?? null,
+            isset($d['externalRevision']) ? (int) $d['externalRevision'] : null,
             (bool) $d['isDeleted'],
-            $d['classifierId'] ?? null
+            $d['classifierId'] ?? null,
         );
     }
 }

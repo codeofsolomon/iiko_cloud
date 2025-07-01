@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Responses\Address;
 
-final readonly class StreetClassfieir
+final readonly class StreetClassifier
 {
     public function __construct(
         public string $id,

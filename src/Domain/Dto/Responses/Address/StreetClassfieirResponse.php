@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Responses\Address;
 
 final readonly class StreetClassfieirResponse
@@ -13,7 +15,7 @@ final readonly class StreetClassfieirResponse
     {
         return new self(
             $d['correlationId'],
-            array_map([StreetClassfieir::class, 'fromArray'], $d['streets'] ?? []),
+            array_map([StreetClassifier::class, 'fromArray'], $d['streets'] ?? []),
         );
     }
 }

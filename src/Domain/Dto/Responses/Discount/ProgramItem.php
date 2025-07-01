@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Responses\Discount;
 
 use IikoApi\Domain\Enums\ProgramTemplateType;

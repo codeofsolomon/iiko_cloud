@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Responses\Address;
 
 final readonly class Region
@@ -16,7 +18,7 @@ final readonly class Region
         return new self(
             $d['id'],
             $d['name'],
-            (int) $d['externalRevision'] ?? null,
+            isset($d['externalRevision']) ? (int) $d['externalRevision'] : null,
             (bool) $d['isDeleted'],
         );
     }
