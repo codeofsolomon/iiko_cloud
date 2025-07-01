@@ -1,33 +1,26 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateOrder;
 
 use IikoApi\Domain\Dto\Requests\BaseRequest;
+use Webmozart\Assert\Assert;
 
+/* ------------------------------------------------------------------
+ | 1. LoyaltyInfo
+ * ----------------------------------------------------------------- */
 class LoyaltyInfo extends BaseRequest
 {
     /**
-     * Coupon No. that has to be considered when calculating loyalty program.
+     * @param  string|null  $coupon  купон (номер/код)
+     * @param  string[]|null  $applicableManualConditions  активированные manual-условия
      */
-    protected ?string $coupon = null;
-
-    /**
-     * Information about applied manual conditions.
-     *
-     * @var string[]|null
-     */
-    protected ?array $applicableManualConditions = null;
-
-    public function setCoupon(?string $coupon): void
-    {
-        $this->coupon = $coupon;
-    }
-
-    /**
-     * @param  string[]|null  $applicableManualConditions
-     */
-    public function setApplicableManualConditions(?array $applicableManualConditions): void
-    {
-        $this->applicableManualConditions = $applicableManualConditions;
+    public function __construct(
+        public ?string $coupon = null,
+        public ?array $applicableManualConditions = null,
+    ) {
+        Assert::nullOrStringNotEmpty($coupon);
+        Assert::nullOrAllStringNotEmpty($applicableManualConditions);
     }
 }

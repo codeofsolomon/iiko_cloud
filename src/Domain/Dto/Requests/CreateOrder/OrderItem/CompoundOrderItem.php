@@ -1,66 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateOrder\OrderItem;
 
 use IikoApi\Domain\Dto\Requests\BaseRequest;
+use Webmozart\Assert\Assert;
 
+/**
+ * @param  Modifier[]|null  $commonModifiers
+ */
 class CompoundOrderItem extends BaseRequest
 {
-    /**
-     * Domain\Enums: Product, Compound.
-     */
-    protected string $type = 'Compound';
-
-    protected Componenet $primaryComponent;
-
-    protected ?Componenet $secondaryComponent;
-
-    /**
-     * commonModifiers.
-     *
-     * @var Modifier[]|null
-     */
-    protected ?array $commonModifiers = null;
-
-    /**
-     * Quantity.
-     *
-     * [ 0 .. 999.999 ]
-     */
-    protected float $amount;
-
-    /**
-     * Size ID. Required if a stock list item has a size scale.
-     */
-    protected ?string $productSizeId = null;
-
-    /**
-     * Size ID. Required if a stock list item has a size scale.
-     */
-    protected ?ComboInformation $comboInformation = null;
-
-    /**
-     * Comment.
-     *
-     * - [ 0 .. 255 ] characters
-     */
-    protected ?string $comment = null;
+    public string $type = 'Compound';
 
     public function __construct(
-        Componenet $primaryComponent,
-        float $amount,
-        ?Componenet $secondaryComponent = null,
-        ?array $commonModifiers = null,
-        ?string $productSizeId = null,
-        ?ComboInformation $comboInformation = null,
-        ?string $comment = null
+        public Component $primaryComponent,
+        public float $amount,                  // >0
+        public ?Component $secondaryComponent = null,
+        public ?array $commonModifiers = null,
+        public ?string $productSizeId = null, // UUID
+        public ?ComboInformation $comboInformation = null,
+        public ?string $comment = null,
     ) {
-        $this->primaryComponent = $primaryComponent;
-        $this->amount = $amount;
-        $this->commonModifiers = $commonModifiers;
-        $this->secondaryComponent = $secondaryComponent;
-        $this->productSizeId = $productSizeId;
-        $this->comboInformation = $comboInformation;
-        $this->comment = $comment ? mb_substr($comment, 0, 255) : null;
+        Assert::greaterThan($amount, 0);
+        Assert::nullOrAllIsInstanceOf($commonModifiers, Modifier::class);
+        Assert::nullOrUuid($productSizeId);
+        Assert::nullOrMaxLength($comment, 255);
     }
 }

@@ -1,126 +1,52 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateOrder\Customer;
 
-use Carbon\Carbon;
+use DateTimeInterface;
 use IikoApi\Domain\Dto\Requests\BaseRequest;
 use IikoApi\Domain\Enums\CustomerGender;
+use Webmozart\Assert\Assert;
 
+/* -------------------------------------------------------------------------
+ | 2. Постоянный (regular) гость
+ * ---------------------------------------------------------------------- */
 class RegularCustomer extends BaseRequest
 {
-    protected string $type = 'regular';
+    /** Всегда «regular» */
+    public string $type = 'regular';
 
     /**
-     * Existing customer ID in RMS.
-     *
-     * - If null - the phone number is searched in database, otherwise the new customer is created in RMS.
+     * @param  string|null  $id  UUID клиента в RMS
+     * @param  string|null  $name  ≤ 60; обязателен, если $id = null
+     * @param  string|null  $surname  ≤ 60
+     * @param  string|null  $comment  ≤ 60
+     * @param  DateTimeInterface|null  $birthdate  «Y-m-d H:i:s.v» на выходе
+     * @param  string|null  $email  email
      */
-    protected ?string $id = null;
-
-    /**
-     * Name of customer.
-     *
-     * - [ 0 .. 60 ] characters.
-     * - Required for new customers (i.e. if "id" == null) Not required if "id" specified.
-     */
-    protected ?string $name = null;
-
-    /**
-     * Last name.
-     *
-     * - [ 0 .. 60 ] characters.
-     */
-    protected ?string $surname = null;
-
-    /**
-     * Comment.
-     *
-     * - [ 0 .. 60 ] characters
-     */
-    protected ?string $comment = null;
-
-    /**
-     * Date of birth.
-     *
-     * - [ 0 .. 60 ] characters
-     * - <yyyy-MM-dd HH:mm:ss.fff>
-     */
-    protected ?string $birthdate = null;
-
-    /**
-     * Email.
-     */
-    protected ?string $email = null;
-
-    /**
-     * Whether customer receives order status notification messages.
-     */
-    protected ?bool $shouldReceiveOrderStatusNotifications = null;
-
-    /**
-     * Gender.
-     *
-     * Domain\Enums: "NotSpecified" "Male" "Female"
-     */
-    protected CustomerGender $gender = CustomerGender::GENDER_NOT_SPECIFIED;
-
     public function __construct(
-        ?string $id = null,
-        ?string $name = null,
-        ?string $surname = null,
-        ?string $comment = null,
-        ?Carbon $birthdate = null,
-        ?string $email = null,
-        ?bool $shouldReceiveOrderStatusNotifications = null,
-        CustomerGender $gender = CustomerGender::GENDER_NOT_SPECIFIED
+        public ?string $id = null,
+        public ?string $name = null,
+        public ?string $surname = null,
+        public ?string $comment = null,
+        public ?DateTimeInterface $birthdate = null,
+        public ?string $email = null,
+        public ?bool $shouldReceiveOrderStatusNotifications = null,
+        public CustomerGender $gender = CustomerGender::GENDER_NOT_SPECIFIED,
     ) {
-        $this->id = $id;
-        $this->name = $name ? mb_substr($name, 0, 60) : null;
-        $this->surname = $surname ? mb_substr($surname, 0, 60) : null;
-        $this->comment = $comment ? mb_substr($comment, 0, 60) : null;
-        $this->birthdate = $birthdate?->format('Y-m-d H:i:s.v');
-        $this->email = $email;
-        $this->shouldReceiveOrderStatusNotifications = $shouldReceiveOrderStatusNotifications;
-        $this->gender = $gender;
-    }
+        /* --- UUID & email --- */
+        Assert::nullOrUuid($id);
+        Assert::nullOrEmail($email);
 
-    public function setId(?string $id): void
-    {
-        $this->id = $id;
-    }
+        /* --- Длины строк --- */
+        Assert::nullOrMaxLength($name, 60);
+        Assert::nullOrMaxLength($surname, 60);
+        Assert::nullOrMaxLength($comment, 60);
 
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function setSurname(?string $surname): void
-    {
-        $this->surname = $surname;
-    }
-
-    public function setComment(?string $comment): void
-    {
-        $this->comment = $comment;
-    }
-
-    public function setBirthdate(?string $birthdate): void
-    {
-        $this->birthdate = $birthdate;
-    }
-
-    public function setEmail(?string $email): void
-    {
-        $this->email = $email;
-    }
-
-    public function setShouldReceiveOrderStatusNotifications(?bool $shouldReceiveOrderStatusNotifications): void
-    {
-        $this->shouldReceiveOrderStatusNotifications = $shouldReceiveOrderStatusNotifications;
-    }
-
-    public function setGender(CustomerGender $gender): void
-    {
-        $this->gender = $gender;
+        /* --- Логика обязательности --- */
+        if ($id === null) {
+            Assert::stringNotEmpty($name, 'name обязателен для нового клиента');
+        }
     }
 }

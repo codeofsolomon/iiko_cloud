@@ -1,25 +1,38 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateOrder\TipsPayment;
 
+use IikoApi\Domain\Dto\Requests\CreateOrder\Payment\PaymentAdditionalData;
 use IikoApi\Domain\Enums\PaymentTypeKind;
+use Webmozart\Assert\Assert;
 
+/* ------------------------------------------------------------------
+ | 3. Чаевые картой
+ * ----------------------------------------------------------------- */
 class TipsPaymentCard extends TipsPayment
 {
-    /**
-     * Card No.
-     *
-     * - In iikoFront, it is possible to make card payment without card No.
-     */
-    protected ?string $number = null;
-
-    /**
-     * Domain\Enums: Cash, Card, External.
-     */
-    protected PaymentTypeKind $paymentTypeKind = PaymentTypeKind::Card;
-
-    public function setNumber(?string $number): void
-    {
-        $this->number = $number;
+    public function __construct(
+        string $tipsTypeId,
+        float $sum,
+        string $paymentTypeId,
+        public ?string $number = null,
+        ?bool $isProcessedExternally = null,
+        ?PaymentAdditionalData $paymentAdditionalData = null,
+        ?bool $isFiscalizedExternally = null,
+        ?bool $isPrepay = null,
+    ) {
+        parent::__construct(
+            PaymentTypeKind::Card,
+            $tipsTypeId,
+            $sum,
+            $paymentTypeId,
+            $isProcessedExternally,
+            $paymentAdditionalData,
+            $isFiscalizedExternally,
+            $isPrepay
+        );
+        Assert::nullOrMaxLength($number, 100);
     }
 }

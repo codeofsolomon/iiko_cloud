@@ -1,53 +1,30 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateOrder\DiscountsInfo;
 
 use IikoApi\Domain\Dto\Requests\BaseRequest;
+use Webmozart\Assert\Assert;
 
+/* ------------------------------------------------------------------
+ | 2. Скидка «iikoCard»
+ * ----------------------------------------------------------------- */
 class DiscountIikoCard extends BaseRequest
 {
-    protected string $type = 'iikoCard';
+    /** Тип фиксирован строкой, требуемой API */
+    public string $type = 'iikoCard';
 
     /**
-     * Card program ID.
+     * @param  DiscountItem[]  $discountItems
      */
-    protected string $programId;
-
-    /**
-     * Card program name.
-     */
-    protected string $programName;
-
-    /**
-     * Discount information for order items.
-     *
-     * @var DiscountItem[]
-     */
-    protected array $discountItems = [];
-
-    public function __construct(string $programId, string $programName)
-    {
-        $this->programId = $programId;
-        $this->programName = $programName;
-    }
-
-    public function setProgramId(string $programId): void
-    {
-        $this->programId = $programId;
-    }
-
-    public function setProgramName(string $programName): void
-    {
-        $this->programName = $programName;
-    }
-
-    public function setDiscountItems(array $discountItems): void
-    {
-        $this->discountItems = $discountItems;
-    }
-
-    public function addDiscountItem(DiscountItem $discountItem): void
-    {
-        $this->discountItems[] = $discountItem;
+    public function __construct(
+        public string $programId,
+        public string $programName,
+        public array $discountItems = [],
+    ) {
+        Assert::uuid($programId);
+        Assert::stringNotEmpty($programName);
+        Assert::allIsInstanceOf($discountItems, DiscountItem::class);
     }
 }

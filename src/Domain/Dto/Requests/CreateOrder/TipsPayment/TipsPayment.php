@@ -1,98 +1,33 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateOrder\TipsPayment;
 
 use IikoApi\Domain\Dto\Requests\BaseRequest;
 use IikoApi\Domain\Dto\Requests\CreateOrder\Payment\PaymentAdditionalData;
 use IikoApi\Domain\Enums\PaymentTypeKind;
+use Webmozart\Assert\Assert;
 
-class TipsPayment extends BaseRequest
+abstract class TipsPayment extends BaseRequest
 {
-    protected PaymentTypeKind $paymentTypeKind = PaymentTypeKind::Cash;
-
     /**
-     * Tips type ID.
-     *
-     * - Can be obtained by /api/1/tips_types operation.
+     * @param  float  $sum  > 0 и ≤ 10 000 000 000
+     * @param  string  $paymentTypeId  UUID (из /payment_types)
+     * @param  string  $tipsTypeId  UUID (из /tips_types)
      */
-    protected string $tipsTypeId;
-
-    /**
-     * Amount due.
-     *
-     * - [ 0 .. 10000000000 ]
-     */
-    protected float $sum;
-
-    /**
-     * Payment type.
-     *
-     * - Can be obtained by /api/1/payment_types operation.
-     */
-    protected string $paymentTypeId;
-
-    /**
-     * Whether payment item is processed by external payment system (made from outside).
-     */
-    protected ?bool $isProcessedExternally = null;
-
-    /**
-     * Additional payment parameters.
-     */
-    protected ?PaymentAdditionalData $paymentAdditionalData = null;
-
-    /**
-     * Whether the payment item is externally fiscalized.
-     */
-    protected ?bool $isFiscalizedExternally = null;
-
-    protected ?bool $isPrepay = null;
-
     public function __construct(
-        string $tipsTypeId,
-        float $sum,
-        string $paymentTypeId,
-        ?bool $isProcessedExternally = null,
-        ?PaymentAdditionalData $paymentAdditionalData = null,
-        ?bool $isFiscalizedExternally = null,
-        ?bool $isPrepay = null
+        public PaymentTypeKind $paymentTypeKind,
+        public string $tipsTypeId,
+        public float $sum,
+        public string $paymentTypeId,
+        public ?bool $isProcessedExternally = null,
+        public ?PaymentAdditionalData $paymentAdditionalData = null,
+        public ?bool $isFiscalizedExternally = null,
+        public ?bool $isPrepay = null,
     ) {
-        $this->tipsTypeId = $tipsTypeId;
-        $this->sum = $sum;
-        $this->paymentTypeId = $paymentTypeId;
-        $this->isProcessedExternally = $isProcessedExternally;
-        $this->paymentAdditionalData = $paymentAdditionalData;
-        $this->isFiscalizedExternally = $isFiscalizedExternally;
-        $this->isPrepay = $isPrepay;
-    }
-
-    public function setTipsTypeId(string $tipsTypeId): void
-    {
-        $this->tipsTypeId = $tipsTypeId;
-    }
-
-    public function setSum(float $sum): void
-    {
-        $this->sum = $sum;
-    }
-
-    public function setPaymentTypeId(string $paymentTypeId): void
-    {
-        $this->paymentTypeId = $paymentTypeId;
-    }
-
-    public function setIsProcessedExternally(?bool $isProcessedExternally): void
-    {
-        $this->isProcessedExternally = $isProcessedExternally;
-    }
-
-    public function setPaymentAdditionalData(?PaymentAdditionalData $paymentAdditionalData): void
-    {
-        $this->paymentAdditionalData = $paymentAdditionalData;
-    }
-
-    public function setIsFiscalizedExternally(?bool $isFiscalizedExternally): void
-    {
-        $this->isFiscalizedExternally = $isFiscalizedExternally;
+        Assert::uuid($tipsTypeId);
+        Assert::uuid($paymentTypeId);
+        Assert::range($sum, 0, 10_000_000_000);
     }
 }

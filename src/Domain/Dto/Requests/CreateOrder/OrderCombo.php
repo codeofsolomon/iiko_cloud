@@ -1,52 +1,36 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateOrder;
 
 use IikoApi\Domain\Dto\Requests\BaseRequest;
+use Webmozart\Assert\Assert;
 
+/* ------------------------------------------------------------------
+ | 2. OrderCombo
+ * ----------------------------------------------------------------- */
 class OrderCombo extends BaseRequest
 {
     /**
-     * Combo ID.
+     * @param  int  $amount  ≥ 1
+     * @param  float  $price  ≥ 0
      */
-    protected string $id;
-
-    /**
-     * Name of combo.
-     */
-    protected string $name;
-
-    /**
-     * Quantity.
-     */
-    protected int $amount;
-
-    /**
-     * Price of one combo.
-     */
-    protected float $price;
-
-    /**
-     * Combo validity ID.
-     */
-    protected string $sourceId;
-
-    /**
-     * Card program ID.
-     */
-    protected ?string $programId = null;
-
-    protected ?string $sizeId = null;
-
-    public function __construct(string $id, string $name, int $amount, float $price, string $sourceId,
-        ?string $programId = null, ?string $sizeId = null)
-    {
-        $this->id = $id;
-        $this->name = $name;
-        $this->amount = $amount;
-        $this->price = $price;
-        $this->sourceId = $sourceId;
-        $this->programId = $programId;
-        $this->sizeId = $sizeId;
+    public function __construct(
+        public string $id,           // UUID combo
+        public string $name,
+        public int $amount,
+        public float $price,
+        public string $sourceId,     // UUID validity/action
+        public ?string $programId = null,
+        public ?string $sizeId = null,
+    ) {
+        Assert::uuid($id);
+        Assert::stringNotEmpty($name);
+        Assert::greaterThanEq($amount, 1);
+        Assert::greaterThanEq($price, 0);
+        Assert::uuid($sourceId);
+        Assert::nullOrUuid($programId);
+        Assert::nullOrUuid($sizeId);
     }
 }

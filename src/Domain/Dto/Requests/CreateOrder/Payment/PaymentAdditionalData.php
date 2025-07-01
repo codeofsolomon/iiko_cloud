@@ -1,38 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateOrder\Payment;
 
 use IikoApi\Domain\Dto\Requests\BaseRequest;
 use IikoApi\Domain\Enums\PaymentCardType;
 use IikoApi\Domain\Enums\PaymentSearchScope;
+use Webmozart\Assert\Assert;
 
 class PaymentAdditionalData extends BaseRequest
 {
-    /**
-     * Guest credential, authorizing payment.
-     */
-    protected string $credential;
-
-    /**
-     * Guest credential search scope.
-     *
-     * - Domain\Enums: "Reserved" "Phone" "CardNumber" "CardTrack" "PaymentToken" "FindFaceId"
-     */
-    protected PaymentSearchScope $searchScope;
-
-    protected PaymentCardType $type = PaymentCardType::LOYALTY_CARD;
-
-    protected ?string $customData = null;
-
     public function __construct(
-        string $credential,
-        PaymentSearchScope $searchScope,
-        PaymentCardType $type,
-        ?string $customData = null)
-    {
-        $this->credential = $credential;
-        $this->searchScope = $searchScope;
-        $this->type = $type;
-        $this->customData = $customData ? mb_substr($customData, 0, 5000) : null;
+        public string $credential,
+        public PaymentSearchScope $searchScope,
+        public PaymentCardType $type = PaymentCardType::LOYALTY_CARD,
+        public ?string $customData = null,      // ≤ 5000
+    ) {
+        Assert::stringNotEmpty($credential);
+        Assert::maxLength($customData, 5000);
     }
 }

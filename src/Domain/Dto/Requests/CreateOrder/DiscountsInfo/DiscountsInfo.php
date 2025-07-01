@@ -1,45 +1,29 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateOrder\DiscountsInfo;
 
 use IikoApi\Domain\Dto\Requests\BaseRequest;
+use Webmozart\Assert\Assert;
 
+/* ------------------------------------------------------------------
+ | 5. Итоговый объект DiscountsInfo
+ * ----------------------------------------------------------------- */
 class DiscountsInfo extends BaseRequest
 {
     /**
-     * Track of discount card to be applied to order.
+     * @param  array<DiscountIikoCard|DiscountRms>|null  $discounts
      */
-    protected ?DiscountCard $card = null;
-
-    /**
-     * Discounts/surcharges.
-     *
-     * @var (DiscountIikoCard|DiscountRMS)[]
-     */
-    protected ?array $discounts = null;
-
-    protected ?bool $fixedLoyaltyDiscounts = null;
-
-    /**
-     * Track of discount card to be applied to order.
-     */
-    public function setCard(?DiscountCard $card): void
-    {
-        $this->card = $card;
-    }
-
-    /**
-     * Discounts/surcharges.
-     *
-     * @param  (DiscountIikoCard|DiscountRMS)[]  $discounts
-     */
-    public function setDiscounts(?array $discounts): void
-    {
-        $this->discounts = $discounts;
-    }
-
-    public function setFixedLoyaltyDiscounts(?bool $fixedLoyaltyDiscounts): void
-    {
-        $this->fixedLoyaltyDiscounts = $fixedLoyaltyDiscounts;
+    public function __construct(
+        public ?DiscountCard $card = null,
+        public ?array $discounts = null,
+        public ?bool $fixedLoyaltyDiscounts = null,
+    ) {
+        Assert::nullOrAllIsInstanceOfAny(
+            $discounts,
+            [DiscountIikoCard::class, DiscountRms::class],
+            'discounts могут содержать только DiscountIikoCard или DiscountRms'
+        );
     }
 }
