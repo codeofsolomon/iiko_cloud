@@ -27,7 +27,7 @@ abstract class BaseService
 
         if ($method !== 'GET') {
             $request->withHeader('Content-Type', 'application/json')
-                ->withBody(Utils::streamFor(json_encode($options ?? [], JSON_THROW_ON_ERROR)));
+                ->withBody(Utils::streamFor($options));
         } else {
             foreach ($options ?? [] as $key => $value) {
                 $request = $request->withUri(
