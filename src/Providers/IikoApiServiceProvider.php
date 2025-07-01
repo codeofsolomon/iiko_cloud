@@ -14,6 +14,8 @@ use IikoApi\Infrastructure\Http\GuzzleApiClient;
 use Illuminate\Cache\CacheManager;
 use Illuminate\Contracts\Config\Repository as ConfigRepo;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Nyholm\Psr7\Factory\Psr17Factory;
+use Psr\Http\Message\RequestFactoryInterface;
 
 class IikoApiServiceProvider extends BaseServiceProvider
 {
@@ -37,6 +39,8 @@ class IikoApiServiceProvider extends BaseServiceProvider
         /** @var ConfigRepo $config */
         $config = $this->app['config'];
 
+        $this->app->singleton(RequestFactoryInterface::class, fn () => new Psr17Factory());
+        
         // 1) low-level HTTP client
         $this->app->singleton(ApiClientInterface::class, function () use ($config) {
             return GuzzleApiClient::build(
