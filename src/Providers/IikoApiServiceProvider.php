@@ -7,7 +7,7 @@ namespace IikoApi\Providers;
 use IikoApi\Application\Contracts\Auth\AuthenticatorInterface;
 use IikoApi\Application\Contracts\Cache\TokenCacheInterface;
 use IikoApi\Application\Contracts\Http\ApiClientInterface;
-use IIkoApi\IikoApiClient;
+use IikoApi\IikoApiClient;
 use IikoApi\Infrastructure\Auth\TokenAuthenticator;
 use IikoApi\Infrastructure\Cache\LaravelTokenCache;
 use IikoApi\Infrastructure\Http\GuzzleApiClient;
