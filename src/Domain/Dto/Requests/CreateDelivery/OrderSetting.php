@@ -1,20 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateDelivery;
 
 use IikoApi\Domain\Dto\Requests\BaseRequest;
+use Webmozart\Assert\Assert;
 
 class OrderSetting extends BaseRequest
 {
-    protected ?int $transportToFrontTimeout = 8;
-
-    protected ?bool $checkStopList = null;
-
     public function __construct(
-        ?int $transportToFrontTimeout = 8,
-        ?bool $checkStopList = null
+        public ?int $transportToFrontTimeout = 8,
+        public ?bool $checkStopList = null,
     ) {
-        $this->transportToFrontTimeout = $transportToFrontTimeout;
-        $this->checkStopList = $checkStopList;
+        Assert::nullOrGreaterThanEq($transportToFrontTimeout, 0);
     }
 }

@@ -1,68 +1,23 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateDelivery\DeliveryPoint;
 
 use IikoApi\Domain\Dto\Requests\BaseRequest;
+use Webmozart\Assert\Assert;
 
 class AddressStreet extends BaseRequest
 {
-    /**
-     * Street ID in classifier, e.g., address database.
-     *
-     * - [ 0 .. 255 ] characters
-     */
-    protected ?string $classifierId = null;
-
-    /**
-     * ID.
-     *
-     * Can be obtained by /api/1/streets/by_city operation.
-     */
-    protected ?string $id = null;
-
-    /**
-     * Name.
-     *
-     * [ 0 .. 60 ] characters
-     */
-    protected ?string $name = null;
-
-    /**
-     * City name.
-     *
-     * [ 0 .. 60 ] characters
-     */
-    protected ?string $city = null;
-
     public function __construct(
-        ?string $classifierId = null,
-        ?string $id = null,
-        ?string $name = null,
-        ?string $city = null
+        public ?string $classifierId = null,  // ≤ 255
+        public ?string $id = null,  // UUID улицы
+        public ?string $name = null,  // ≤ 60
+        public ?string $city = null,  // ≤ 60
     ) {
-        $this->classifierId = $classifierId ? mb_substr($classifierId, 0, length: 255) : null;
-        $this->id = $id;
-        $this->name = $name ? mb_substr($name, 0, 60) : null;
-        $this->city = $city ? mb_substr($city, 0, 60) : null;
-    }
-
-    public function setClassifierId(?string $classifierId): void
-    {
-        $this->classifierId = $classifierId;
-    }
-
-    public function setId(?string $id): void
-    {
-        $this->id = $id;
-    }
-
-    public function setName(?string $name): void
-    {
-        $this->name = $name;
-    }
-
-    public function setCity(?string $city): void
-    {
-        $this->city = $city;
+        Assert::nullOrMaxLength($classifierId, 255);
+        Assert::nullOrUuid($id);
+        Assert::nullOrMaxLength($name, 60);
+        Assert::nullOrMaxLength($city, 60);
     }
 }

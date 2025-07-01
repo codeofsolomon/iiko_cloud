@@ -1,52 +1,25 @@
 <?php
 
+declare(strict_types=1);
+
 namespace IikoApi\Domain\Dto\Requests\CreateDelivery\DeliveryPoint;
 
 use IikoApi\Domain\Dto\Requests\BaseRequest;
+use Webmozart\Assert\Assert;
 
 class DeliveryPoint extends BaseRequest
 {
     /**
-     * Order delivery address.
+     * @param  string|null  $externalCartographyId  ≤ 100
+     * @param  string|null  $comment  ≤ 500
      */
-    protected ?Coordinates $coordinates = null;
-
-    /**
-     * Order delivery address.
-     */
-    protected ?Address $address = null;
-
-    /**
-     * Delivery location custom code in customer's API system.
-     *
-     * - [ 0 .. 100 ] characters
-     */
-    protected ?string $externalCartographyId = null;
-
-    /**
-     * Additional information.
-     *
-     * - [ 0 .. 500 ] characters
-     */
-    protected ?string $comment = null;
-
-    public function setCoordinates(?Coordinates $coordinates): void
-    {
-        $this->coordinates = $coordinates;
-    }
-
-    public function setAddress(?Address $address): void
-    {
-        $this->address = $address;
-    }
-
-    public function setExternalCartographyId(?string $externalCartographyId): void
-    {
-        $this->externalCartographyId = $externalCartographyId ? mb_substr($externalCartographyId, 0, 100) : null;
-    }
-
-    public function setComment(?string $comment): void
-    {
-        $this->comment = $comment ? mb_substr($comment, 0, 500) : null;
+    public function __construct(
+        public ?Coordinates $coordinates = null,
+        public ?Address $address = null,
+        public ?string $externalCartographyId = null,
+        public ?string $comment = null,
+    ) {
+        Assert::nullOrMaxLength($externalCartographyId, 100);
+        Assert::nullOrMaxLength($comment, 500);
     }
 }
