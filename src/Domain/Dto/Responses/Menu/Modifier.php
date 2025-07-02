@@ -7,21 +7,27 @@ namespace IikoApi\Domain\Dto\Responses\Menu;
 final readonly class Modifier
 {
     public function __construct(
-        public string $productId,
-        public int $amount,
-        public ?int $price,
-        public ?string $productGroupId,
-        public ?string $positionId,
+        public string $id,
+        public ?int $defaultAmount,
+        public int $minAmount,
+        public int $maxAmount,
+        public ?bool $required,
+        public ?bool $hideIfDefaultAmount,
+        public ?bool $splittable,
+        public ?int $freeOfChargeAmount,
     ) {}
 
     public static function fromArray(array $data): self
     {
         return new self(
-            productId: $data['productId'],
-            amount: (int) $data['amount'],
-            price: isset($data['price']) ? (int) $data['price'] : null,
-            productGroupId: $data['productGroupId'] ?? null,
-            positionId: $data['positionId'] ?? null,
+            id: $data['id'],
+            defaultAmount: (int) $data['defaultAmount'] ?? null,
+            minAmount: (int) $data['minAmount'],
+            maxAmount: (int) $data['maxAmount'],
+            required: (bool) $data['required'] ?? null,
+            hideIfDefaultAmount: (bool) $data['hideIfDefaultAmount'] ?? null,
+            splittable: (bool) $data['splittable'] ?? null,
+            freeOfChargeAmount: (int) $data['freeOfChargeAmount'] ?? null,
         );
     }
 }

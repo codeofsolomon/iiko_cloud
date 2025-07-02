@@ -39,8 +39,8 @@ class IikoApiServiceProvider extends BaseServiceProvider
         /** @var ConfigRepo $config */
         $config = $this->app['config'];
 
-        $this->app->singleton(RequestFactoryInterface::class, fn () => new Psr17Factory());
-        
+        $this->app->singleton(RequestFactoryInterface::class, fn () => new Psr17Factory);
+
         // 1) low-level HTTP client
         $this->app->singleton(ApiClientInterface::class, function () use ($config) {
             return GuzzleApiClient::build(

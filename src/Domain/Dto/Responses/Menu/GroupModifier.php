@@ -6,7 +6,7 @@ namespace IikoApi\Domain\Dto\Responses\Menu;
 
 final readonly class GroupModifier
 {
-    /** @param ChildModifier[] $childModifiers */
+    /** @param Modifier[] $childModifiers */
     public function __construct(
         public string $id,
         public int $minAmount,
@@ -29,7 +29,7 @@ final readonly class GroupModifier
             required: (bool) $data['required'],
             childModifiersHaveMinMaxRestrictions: (bool) $data['childModifiersHaveMinMaxRestrictions'],
             childModifiers: array_map(
-                ChildModifier::class.'::fromArray',
+                Modifier::class.'::fromArray',
                 $data['childModifiers'] ?? []
             ),
             hideIfDefaultAmount: (bool) $data['hideIfDefaultAmount'],
