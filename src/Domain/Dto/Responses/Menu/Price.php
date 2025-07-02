@@ -7,9 +7,9 @@ namespace IikoApi\Domain\Dto\Responses\Menu;
 final readonly class Price
 {
     public function __construct(
-        public int $currentPrice,
+        public float $currentPrice,
         public bool $isIncludedInMenu,
-        public int $nextPrice,
+        public float $nextPrice,
         public bool $nextIncludedInMenu,
         public ?string $nextDatePrice,
     ) {}
@@ -17,9 +17,9 @@ final readonly class Price
     public static function fromArray(array $data): self
     {
         return new self(
-            currentPrice: (int) $data['currentPrice'],
+            currentPrice: (float) $data['currentPrice'],
             isIncludedInMenu: (bool) $data['isIncludedInMenu'],
-            nextPrice: (int) $data['nextPrice'],
+            nextPrice: (float) $data['nextPrice'],
             nextIncludedInMenu: (bool) $data['nextIncludedInMenu'],
             nextDatePrice: $data['nextDatePrice'] ?? null,
         );
