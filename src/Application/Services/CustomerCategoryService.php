@@ -7,7 +7,7 @@ namespace IikoApi\Application\Services;
 use IikoApi\Constants;
 use IikoApi\Domain\Dto\Requests\CustomerCategory\CustomerCategoriesRequest;
 use IikoApi\Domain\Dto\Responses\CustomerCategory\CategoryResponse;
-use IikoApi\Domain\Dto\Responses\CustomerCategory\CustomerCategoryManageRequest;
+use IikoApi\Domain\Dto\Requests\CustomerCategory\CustomerCategoryManageRequest;
 
 final class CustomerCategoryService extends BaseService
 {

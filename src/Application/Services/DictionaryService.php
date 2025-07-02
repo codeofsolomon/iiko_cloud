@@ -8,7 +8,7 @@ use IikoApi\Constants;
 use IikoApi\Domain\Dto\Requests\Dictionary\DiscountsRequest;
 use IikoApi\Domain\Dto\Requests\Dictionary\OrderTypesRequest;
 use IikoApi\Domain\Dto\Requests\Dictionary\PaymentTypesRequest;
-use IikoApi\Domain\Dto\Responses\Dictionary\Discount;
+use IikoApi\Domain\Dto\Responses\Dictionary\DiscountResponse;
 use IikoApi\Domain\Dto\Responses\Dictionary\OrderTypes;
 use IikoApi\Domain\Dto\Responses\Dictionary\PaymentTypes;
 
@@ -45,7 +45,7 @@ final class DictionaryService extends BaseService
     /**
      * Summary of getDiscounts
      */
-    public function getDiscounts(DiscountsRequest $filter): Discount
+    public function getDiscounts(DiscountsRequest $filter): DiscountResponse
     {
         $response = $this->authorizedRequest(
             'POST',
@@ -53,6 +53,6 @@ final class DictionaryService extends BaseService
             $filter->toArray(),
         );
 
-        return Discount::fromArray($response);
+        return DiscountResponse::fromArray($response);
     }
 }
