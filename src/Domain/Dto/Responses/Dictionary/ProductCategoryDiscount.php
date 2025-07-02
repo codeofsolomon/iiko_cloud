@@ -9,7 +9,7 @@ final readonly class ProductCategoryDiscount
     public function __construct(
         public string $categoryId,
         public ?string $categoryName,
-        public string $percent,
+        public float $percent,
     ) {}
 
     public static function fromArray(array $d): self
@@ -17,7 +17,7 @@ final readonly class ProductCategoryDiscount
         return new self(
             categoryId: $d['categoryId'],
             categoryName: $d['categoryName'] ?? null,
-            percent: $d['percent']
+            percent: (float) $d['percent']
         );
     }
 }
