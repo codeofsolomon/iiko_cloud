@@ -2,8 +2,15 @@
 
 namespace IikoApi\Domain\Enums;
 
-enum ResponseType: string
+use JsonSerializable;
+
+enum ResponseType: string implements JsonSerializable
 {
     case Simple = 'Simple';
     case Extended = 'Extended';
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->value;
+    }
 }

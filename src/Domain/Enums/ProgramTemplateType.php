@@ -2,7 +2,9 @@
 
 namespace IikoApi\Domain\Enums;
 
-enum ProgramTemplateType: int
+use JsonSerializable;
+
+enum ProgramTemplateType: int implements JsonSerializable
 {
     case NONE = 0;
 
@@ -21,4 +23,9 @@ enum ProgramTemplateType: int
     case PromotionsProgram = 7;
 
     case NthDishPromotionsProgram = 8;
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->value;
+    }
 }

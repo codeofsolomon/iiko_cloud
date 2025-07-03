@@ -2,7 +2,9 @@
 
 namespace IikoApi\Domain\Enums;
 
-enum ProgramType: int
+use JsonSerializable;
+
+enum ProgramType: int implements JsonSerializable
 {
     case DEPOSIT = 0;
 
@@ -13,4 +15,9 @@ enum ProgramType: int
     case DISCOUNT = 3;
 
     case CERTIFICATE = 4;
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->value;
+    }
 }

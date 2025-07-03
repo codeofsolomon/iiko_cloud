@@ -2,8 +2,15 @@
 
 namespace IikoApi\Domain\Enums;
 
-enum AddressLookupService: string
+use JsonSerializable;
+
+enum AddressLookupService: string implements JsonSerializable
 {
     case DaData = 'DaData';
     case GetAddress = 'GetAddress';
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->value;
+    }
 }

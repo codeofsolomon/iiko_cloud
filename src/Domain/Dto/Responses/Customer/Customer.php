@@ -38,7 +38,7 @@ final readonly class Customer
         public array $categories,//
         public ?string $externalId,
         public bool $anonymized, //
-        public string $userData, //
+        public ?string $userData, //
         public ?string $personalDataConsentFrom,
         public ?string $personalDataConsentTo,
         public ?string $personalDataProcessingFrom,
@@ -77,7 +77,7 @@ final readonly class Customer
             array_map([Category::class, 'fromArray'], $d['categories'] ?? []),
             $d['externalId'] ?? null,
             (bool) $d['anonymized'],
-            $d['userData'],
+            $d['userData'] ?? null,
             $d['personalDataConsentFrom'] ?? null,
             $d['personalDataConsentTo'] ?? null,
             $d['personalDataProcessingFrom'] ?? null,

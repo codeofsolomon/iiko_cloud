@@ -2,7 +2,9 @@
 
 namespace IikoApi\Domain\Enums;
 
-enum PaymentTypeKind: string
+use JsonSerializable;
+
+enum PaymentTypeKind: string implements JsonSerializable
 {
     case Unknown = 'Unknown';
     case Cash = 'Cash';
@@ -12,4 +14,9 @@ enum PaymentTypeKind: string
     case Voucher = 'Voucher';
     case External = 'External';
     case LoyaltyCard = 'LoyaltyCard';
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->value;
+    }
 }

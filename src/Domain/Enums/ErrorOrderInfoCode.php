@@ -2,11 +2,13 @@
 
 namespace IikoApi\Domain\Enums;
 
+use JsonSerializable;
+
 /**
  * Все возможные значения поля errorInfo.code
  * (см. https://api-ru.iiko.services/api/1/deliveries/create).
  */
-enum ErrorOrderInfoCode: string
+enum ErrorOrderInfoCode: string implements JsonSerializable
 {
     case Common = 'Common';
     case IllegalDeliveryStatus = 'IllegalDeliveryStatus';
@@ -80,4 +82,9 @@ enum ErrorOrderInfoCode: string
     case IikoFrontTooOldVersion = 'IikoFrontTooOldVersion';
     case InternalServerError = 'InternalServerError';
     case UnknownError = 'UnknownError';
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->value;
+    }
 }

@@ -2,7 +2,9 @@
 
 namespace IikoApi\Domain\Enums;
 
-enum TableOrderStatus: string
+use JsonSerializable;
+
+enum TableOrderStatus: string implements JsonSerializable
 {
     case New = 'New';        // только создан
     case Printed = 'Printed';    // отправлен на кухню
@@ -13,4 +15,9 @@ enum TableOrderStatus: string
     case Closed = 'Closed';     // оплачен
     case Deleted = 'Deleted';    // удалён
     case Unknown = 'Unknown';    // для будущих статусов
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->value;
+    }
 }

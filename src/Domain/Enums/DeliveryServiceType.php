@@ -2,9 +2,16 @@
 
 namespace IikoApi\Domain\Enums;
 
-enum DeliveryServiceType: string
+use JsonSerializable;
+
+enum DeliveryServiceType: string implements JsonSerializable
 {
     case CourierOnly = 'CourierOnly';
     case SelfServiceOnly = 'SelfServiceOnly';
     case CourierAndSelfService = 'CourierAndSelfService';
+
+    public function jsonSerialize(): mixed
+    {
+        return $this->value;
+    }
 }
