@@ -52,7 +52,7 @@ class Constants
 
     public const STOP_LISTS = 'stop_lists';
 
-    public const WEBHOOK_UPDATE_SETTINGS = 'webhooks/update_settings';
+    public const WEBHOOK_UPDATE_SETTINGS = 'webhooks/settings';
 
     public const LOYALTY_CALCULATE = 'loyalty/iiko/calculate';
 
