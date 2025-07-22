@@ -18,6 +18,8 @@ class Constants
 
     public const CREATE_DELIVERY_URL = 'deliveries/create';
 
+    public const CANCEL_DELIVERY_URL = 'deliveries/cancel';
+
     public const RETRIEVE_DELIVERIES_BY_IDS = 'deliveries/by_id';
 
     public const CREATE_ORDER_URL = 'order/create';
